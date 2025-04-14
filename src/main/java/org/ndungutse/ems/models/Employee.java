@@ -4,13 +4,13 @@ public class Employee<T> implements Comparable<Employee<T>> {
 
     private T employeeId;
     private String name;
-    private DepartementEnum department;
+    private Department department;
     private double salary;
     private double performanceRating;
     private int yearsOfExperience;
     private boolean isActive;
 
-    public Employee(T employeeId, String name, DepartementEnum department, double salary, double performanceRating,
+    public Employee(T employeeId, String name, Department department, double salary, double performanceRating,
             int yearsOfExperience, boolean isActive) {
         this.employeeId = employeeId;
         this.name = name;
@@ -42,11 +42,11 @@ public class Employee<T> implements Comparable<Employee<T>> {
         this.name = name;
     }
 
-    public DepartementEnum getDepartment() {
+    public Department getDepartment() {
         return department;
     }
 
-    public void setDepartment(DepartementEnum department) {
+    public void setDepartment(Department department) {
         this.department = department;
     }
 
