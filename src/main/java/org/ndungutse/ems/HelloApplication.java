@@ -33,11 +33,44 @@ public class HelloApplication extends Application {
         employeeCollection.addEmployee(emp1);
         employeeCollection.addEmployee(emp2);
         employeeCollection.addEmployee(emp3);
-        System.out.println("Before remove");
-        System.out.println(employeeCollection.getEmployees());
-        System.out.println("********************** After remove *********************");
-        employeeCollection.removeEmployee(emp1.getEmployeeId());
-        System.out.println(employeeCollection.getEmployees());
+        // System.out.println("Before remove");
+        // System.out.println(employeeCollection.getEmployees());
+        // System.out.println("********************** After remove
+        // *********************");
+        // employeeCollection.removeEmployee(emp1.getEmployeeId());
+        // System.out.println(employeeCollection.getEmployees());
+
+        System.out.println(emp1.getName());
+        System.out.println(emp1.getDepartment());
+        System.out.println(emp1.getSalary());
+        System.out.println(emp1.getYearsOfExperience());
+        System.out.println(emp1.getPerformanceRating());
+        System.out.println(emp1.isActive());
+
+        System.out.println("******************* UPDATE TEST ***********************");
+        employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(), "name", "Ndungutse");
+
+        employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
+                "department", Department.FINANCE);
+
+        employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
+                "salary", 2000);
+
+        employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
+                "performanceRating", 4.7);
+
+        employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
+                "yearsOfExperience", 5);
+
+        employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
+                "isActive", false);
+
+        System.out.println(emp1.getName());
+        System.out.println(emp1.getDepartment());
+        System.out.println(emp1.getSalary());
+        System.out.println(emp1.getYearsOfExperience());
+        System.out.println(emp1.getPerformanceRating());
+        System.out.println(emp1.isActive());
 
     }
 }
