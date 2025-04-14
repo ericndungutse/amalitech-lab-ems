@@ -82,4 +82,10 @@ public class Employee<T> implements Comparable<Employee<T>> {
         this.isActive = isActive;
     }
 
+    @Override
+    public String toString() {
+        return "Employee [employeeId=" + employeeId + ", name=" + name + ", department=" + department + ", salary="
+                + salary + ", performanceRating=" + performanceRating + ", yearsOfExperience=" + yearsOfExperience
+                + ", isActive=" + isActive + "]";
+    }
 }
