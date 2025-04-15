@@ -1,6 +1,9 @@
 package org.ndungutse.ems.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.ndungutse.ems.models.Department;
 import org.ndungutse.ems.models.Employee;
@@ -10,7 +13,7 @@ public class EmployeeCollection<T> {
 
     // Add employee
     public void addEmployee(Employee<T> employee) {
-        // Check if employee aleady exists
+        // Check if employee already exists
         if (employees.get(employee.getEmployeeId()) != null)
             throw new RuntimeException("Employee already exists");
 
@@ -72,6 +75,25 @@ public class EmployeeCollection<T> {
             default:
                 throw new RuntimeException("Invalid field.");
         }
+    }
+
+    // Get All employees and display them
+    public List<Employee<T>> getAllEmployees() {
+
+        for (Map.Entry<T, Employee<T>> employee : employees.entrySet()) {
+            Employee<T> emp = employee.getValue();
+
+            System.out.println("==================================");
+            System.out.println("Employee ID: " + emp.getEmployeeId());
+            System.out.println("Name       : " + emp.getName());
+            System.out.println("Department : " + emp.getDepartment());
+            System.out.println("Salary     : $" + emp.getSalary());
+            System.out.println("Rating     : " + emp.getPerformanceRating());
+            System.out.println("Experience : " + emp.getYearsOfExperience() + " years");
+            System.out.println("Active     : " + (emp.isActive() ? "Yes" : "No"));
+        }
+
+        return new ArrayList<>(employees.values());
     }
 
     public HashMap<T, Employee<T>> getEmployees() {
