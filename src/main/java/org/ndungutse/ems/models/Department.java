@@ -1,6 +1,6 @@
 package org.ndungutse.ems.models;
 
-public enum DepartementEnum {
+public enum Department {
     HR,
     IT,
     FINANCE,
