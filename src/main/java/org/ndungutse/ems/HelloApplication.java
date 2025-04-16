@@ -24,61 +24,28 @@ public class HelloApplication extends Application {
         public static void main(String[] args) {
                 // launch();
 
-                Employee<Integer> emp1 = new Employee<Integer>(1, "Eric", Department.IT, 1500, 4.5, 3, true);
-                Employee<Integer> emp2 = new Employee<Integer>(2, "Camariza", Department.FINANCE, 1500, 4.5, 3, true);
-                Employee<Integer> emp3 = new Employee<Integer>(3, "Lodrigues", Department.HR, 1500, 4.5, 3, true);
-
                 EmployeeCollection<Integer> employeeCollection = new EmployeeCollection<>();
 
-                employeeCollection.addEmployee(emp1);
-                employeeCollection.addEmployee(emp2);
-                employeeCollection.addEmployee(emp3);
-                // // System.out.println("Before remove");
-                // // System.out.println(employeeCollection.getEmployees());
-                // // System.out.println("********************** After remove
-                // // *********************");
-                // // employeeCollection.removeEmployee(emp1.getEmployeeId());
-                // // System.out.println(employeeCollection.getEmployees());
+                employeeCollection.addEmployee(new Employee<>(1, "Eric", Department.IT, 1500, 4.5, 3, true));
+                employeeCollection.addEmployee(new Employee<>(2, "Camariza", Department.FINANCE, 3200, 3.9, 5, true));
+                employeeCollection.addEmployee(new Employee<>(3, "Lodrigues", Department.HR, 2700, 4.1, 4, true));
+                employeeCollection.addEmployee(new Employee<>(4, "Elina", Department.IT, 8000, 4.8, 6, true));
+                employeeCollection.addEmployee(new Employee<>(5, "Jean", Department.HR, 900, 3.3, 1, false));
+                employeeCollection.addEmployee(new Employee<>(6, "Nadine", Department.FINANCE, 1200, 4.0, 2, true));
+                employeeCollection.addEmployee(new Employee<>(7, "Patrick", Department.IT, 5500, 4.6, 7, true));
+                employeeCollection.addEmployee(new Employee<>(8, "Sandrine", Department.HR, 2000, 3.6, 3, false));
+                employeeCollection.addEmployee(new Employee<>(9, "Albert", Department.FINANCE, 10000, 4.9, 10, true));
+                employeeCollection.addEmployee(new Employee<>(10, "Christine", Department.IT, 1500, 4.3, 3, true));
 
-                // System.out.println(emp1.getName());
-                // System.out.println(emp1.getDepartment());
-                // System.out.println(emp1.getSalary());
-                // System.out.println(emp1.getYearsOfExperience());
-                // System.out.println(emp1.getPerformanceRating());
-                // System.out.println(emp1.isActive());
-
-                // System.out.println("******************* UPDATE TEST
-                // ***********************");
-                // employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
-                // "name", "Ndungutse");
-
-                // employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
-                // "department", Department.FINANCE);
-
-                // employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
-                // "salary", 2000);
-
-                // employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
-                // "performanceRating", 4.7);
-
-                // employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
-                // "yearsOfExperience", 5);
-
-                // employeeCollection.updateEmployeeEmployeeDetails(emp1.getEmployeeId(),
-                // "isActive", false);
-
-                // System.out.println(emp1.getName());
-                // System.out.println(emp1.getDepartment());
-                // System.out.println(emp1.getSalary());
-                // System.out.println(emp1.getYearsOfExperience());
-                // System.out.println(emp1.getPerformanceRating());
-                // System.out.println(emp1.isActive());
-
-                // // System.out.println(employeeCollection.getAllEmployees());
-                // System.out.println("Employees " +
-                // employeeCollection.getEmployeesBuDepartment(Department.FINANCE));
-
+                // Example test method calls
+                System.out.println("********************* Search by name: 'ric' **************");
                 System.out.println(employeeCollection.getEmployeeByName("ric"));
+
+                System.out.println("\n ----------------- IT Department Employees: --------------------]=");
+                System.out.println(employeeCollection.getEmployeesBuDepartment(Department.IT));
+
+                System.out.println("\n &&&&&&&&&&&&&&&&&&&&&& Employees with salary between $1,000 and $5,000:");
+                System.out.println(employeeCollection.getEmployeesBySalaryRange(1000, 5000));
 
         }
 }

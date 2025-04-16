@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.ndungutse.ems.models.Department;
@@ -115,8 +114,13 @@ public class EmployeeCollection<T> {
         return employeesByName;
     }
 
-    public HashMap<T, Employee<T>> getEmployees() {
-        return employees;
+    // Get EMployees based on salary
+    public List<Employee<T>> getEmployeesBySalaryRange(double minSalary, double maxSalary) {
+        List<Employee<T>> emp = employees.values().stream()
+                .filter(employee -> employee.getSalary() >= minSalary && employee.getSalary() <= maxSalary)
+                .collect(Collectors.toList());
+
+        return emp;
     }
 
     @Override
