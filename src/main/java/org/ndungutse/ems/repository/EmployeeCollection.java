@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.ndungutse.ems.models.Department;
 import org.ndungutse.ems.models.Employee;
@@ -94,6 +95,14 @@ public class EmployeeCollection<T> {
         }
 
         return new ArrayList<>(employees.values());
+    }
+
+    // Get employees by department
+    public List<Employee<T>> getEmployeesBuDepartment(Department department) {
+        List<Employee<T>> departmentEmployees = employees.values().stream()
+                .filter((employee) -> employee.getDepartment().equals(department)).collect(Collectors.toList());
+
+        return departmentEmployees;
     }
 
     public HashMap<T, Employee<T>> getEmployees() {

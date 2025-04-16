@@ -74,7 +74,8 @@ public class HelloApplication extends Application {
                 // System.out.println(emp1.getPerformanceRating());
                 // System.out.println(emp1.isActive());
 
-                System.out.println(employeeCollection.getAllEmployees());
+                // System.out.println(employeeCollection.getAllEmployees());
+                System.out.println("Employees " + employeeCollection.getEmployeesBuDepartment(Department.FINANCE));
 
         }
 }
