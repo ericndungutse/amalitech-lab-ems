@@ -2,8 +2,9 @@ package org.ndungutse.ems.repository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.ndungutse.ems.models.Department;
 import org.ndungutse.ems.models.Employee;
@@ -14,7 +15,7 @@ public class EmployeeCollection<T> {
     // Add employee
     public void addEmployee(Employee<T> employee) {
         // Check if employee already exists
-        if (employees.get(employee.getEmployeeId()) != null)
+        if (this.employees.get(employee.getEmployeeId()) != null)
             throw new RuntimeException("Employee already exists");
 
         // Save new employee
@@ -24,7 +25,7 @@ public class EmployeeCollection<T> {
     // Remove Employee
     public void removeEmployee(T employeeId) {
         // Check if employee with id exists
-        if (employees.get(employeeId) == null)
+        if (this.employees.get(employeeId) == null)
             throw new RuntimeException("Employee with id: " + employeeId + "does not exists.");
 
         // Remove the employee
@@ -34,7 +35,7 @@ public class EmployeeCollection<T> {
     // Update Employee Details
     public void updateEmployeeEmployeeDetails(T employeeId, String field, Object newValue) {
         // Find the employee
-        Employee<T> employeeToUpdate = employees.get(employeeId);
+        Employee<T> employeeToUpdate = this.employees.get(employeeId);
 
         // Check if employee exists
         if (employeeToUpdate == null)
@@ -79,10 +80,41 @@ public class EmployeeCollection<T> {
 
     // Get All employees and display them
     public List<Employee<T>> getAllEmployees() {
+        displayEmployees();
+        return new ArrayList<>(this.employees.values());
+    }
 
-        for (Map.Entry<T, Employee<T>> employee : employees.entrySet()) {
-            Employee<T> emp = employee.getValue();
+    // Get employees by department
+    public List<Employee<T>> getEmployeesBuDepartment(Department department) {
+        List<Employee<T>> departmentEmployees = this.employees.values().stream()
+                .filter((employee) -> employee.getDepartment().equals(department)).collect(Collectors.toList());
 
+        return departmentEmployees;
+    }
+
+    // Get Employees by name based on a search term
+    public List<Employee<T>> getEmployeeByName(String name) {
+        List<Employee<T>> employeesByName = this.employees.values().stream()
+                .filter(employee -> employee.getName().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
+
+        return employeesByName;
+    }
+
+    // Get EMployees based on salary
+    public List<Employee<T>> getEmployeesBySalaryRange(double minSalary, double maxSalary) {
+        List<Employee<T>> emp = this.employees.values().stream()
+                .filter(employee -> employee.getSalary() >= minSalary && employee.getSalary() <= maxSalary)
+                .collect(Collectors.toList());
+
+        return emp;
+    }
+
+    // Display Employees
+    public void displayEmployees() {
+        Iterator<Employee<T>> iterator = this.employees.values().iterator();
+        while (iterator.hasNext()) {
+            Employee<T> emp = iterator.next();
             System.out.println("==================================");
             System.out.println("Employee ID: " + emp.getEmployeeId());
             System.out.println("Name       : " + emp.getName());
@@ -92,12 +124,13 @@ public class EmployeeCollection<T> {
             System.out.println("Experience : " + emp.getYearsOfExperience() + " years");
             System.out.println("Active     : " + (emp.isActive() ? "Yes" : "No"));
         }
-
-        return new ArrayList<>(employees.values());
     }
 
-    public HashMap<T, Employee<T>> getEmployees() {
-        return employees;
+    // Employees with minimum performance rating (e.g., rating >= 4.0).
+    public List<Employee<T>> getEmployeesByPerformanceRating(double minRating) {
+        List<Employee<T>> emp = this.employees.values().stream()
+                .filter(employee -> employee.getPerformanceRating() >= minRating).collect(Collectors.toList());
+        return emp;
     }
 
     @Override
