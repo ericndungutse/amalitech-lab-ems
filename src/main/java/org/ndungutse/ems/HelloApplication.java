@@ -25,8 +25,8 @@ public class HelloApplication extends Application {
                 // launch();
 
                 Employee<Integer> emp1 = new Employee<Integer>(1, "Eric", Department.IT, 1500, 4.5, 3, true);
-                Employee<Integer> emp2 = new Employee<Integer>(2, "Emp2", Department.FINANCE, 1500, 4.5, 3, true);
-                Employee<Integer> emp3 = new Employee<Integer>(3, "Emp3", Department.HR, 1500, 4.5, 3, true);
+                Employee<Integer> emp2 = new Employee<Integer>(2, "Camariza", Department.FINANCE, 1500, 4.5, 3, true);
+                Employee<Integer> emp3 = new Employee<Integer>(3, "Lodrigues", Department.HR, 1500, 4.5, 3, true);
 
                 EmployeeCollection<Integer> employeeCollection = new EmployeeCollection<>();
 
@@ -74,8 +74,11 @@ public class HelloApplication extends Application {
                 // System.out.println(emp1.getPerformanceRating());
                 // System.out.println(emp1.isActive());
 
-                // System.out.println(employeeCollection.getAllEmployees());
-                System.out.println("Employees " + employeeCollection.getEmployeesBuDepartment(Department.FINANCE));
+                // // System.out.println(employeeCollection.getAllEmployees());
+                // System.out.println("Employees " +
+                // employeeCollection.getEmployeesBuDepartment(Department.FINANCE));
+
+                System.out.println(employeeCollection.getEmployeeByName("ric"));
 
         }
 }

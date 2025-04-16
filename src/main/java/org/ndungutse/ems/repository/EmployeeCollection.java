@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.ndungutse.ems.models.Department;
@@ -103,6 +104,15 @@ public class EmployeeCollection<T> {
                 .filter((employee) -> employee.getDepartment().equals(department)).collect(Collectors.toList());
 
         return departmentEmployees;
+    }
+
+    // Get Employees by name based on a search term
+    public List<Employee<T>> getEmployeeByName(String name) {
+        List<Employee<T>> employeesByName = employees.values().stream()
+                .filter(employee -> employee.getName().toLowerCase().contains(name.toLowerCase()))
+                .collect(Collectors.toList());
+
+        return employeesByName;
     }
 
     public HashMap<T, Employee<T>> getEmployees() {
