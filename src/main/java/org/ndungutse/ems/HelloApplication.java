@@ -47,7 +47,11 @@ public class HelloApplication extends Application {
                 System.out.println("\n &&&&&&&&&&&&&&&&&&&&&& Employees with salary between$1,000 and $5,000:");
                 System.out.println(employeeCollection.getEmployeesBySalaryRange(1000, 5000));
 
-                employeeCollection.getAllEmployees();
+                // employeeCollection.getAllEmployees();
+
+                System.out.println(
+                                "\n *********************** Employees with rating greater than 4.5: ***********************");
+                System.out.println(employeeCollection.getEmployeesByPerformanceRating(4.5));
 
         }
 }

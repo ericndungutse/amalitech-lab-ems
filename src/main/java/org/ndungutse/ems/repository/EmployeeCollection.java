@@ -126,6 +126,13 @@ public class EmployeeCollection<T> {
         }
     }
 
+    // Employees with minimum performance rating (e.g., rating >= 4.0).
+    public List<Employee<T>> getEmployeesByPerformanceRating(double minRating) {
+        List<Employee<T>> emp = this.employees.values().stream()
+                .filter(employee -> employee.getPerformanceRating() >= minRating).collect(Collectors.toList());
+        return emp;
+    }
+
     @Override
     public String toString() {
         return "EmployeeCollection [employees=" + employees + "]";
