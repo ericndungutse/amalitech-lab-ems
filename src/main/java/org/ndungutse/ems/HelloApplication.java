@@ -38,14 +38,16 @@ public class HelloApplication extends Application {
                 employeeCollection.addEmployee(new Employee<>(10, "Christine", Department.IT, 1500, 4.3, 3, true));
 
                 // Example test method calls
-                System.out.println("********************* Search by name: 'ric' **************");
+                System.out.println("********************* Search by name: 'ric'**************");
                 System.out.println(employeeCollection.getEmployeeByName("ric"));
 
-                System.out.println("\n ----------------- IT Department Employees: --------------------]=");
+                System.out.println("\n ----------------- IT Department Employees:--------------------]=");
                 System.out.println(employeeCollection.getEmployeesBuDepartment(Department.IT));
 
-                System.out.println("\n &&&&&&&&&&&&&&&&&&&&&& Employees with salary between $1,000 and $5,000:");
+                System.out.println("\n &&&&&&&&&&&&&&&&&&&&&& Employees with salary between$1,000 and $5,000:");
                 System.out.println(employeeCollection.getEmployeesBySalaryRange(1000, 5000));
+
+                employeeCollection.getAllEmployees();
 
         }
 }
