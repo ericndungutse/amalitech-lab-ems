@@ -9,9 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.ndungutse.ems.models.Employee;
@@ -19,6 +17,7 @@ import org.ndungutse.ems.repository.EmployeeCollection;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class HelloController {
     @FXML
@@ -93,7 +92,30 @@ public class HelloController {
         }
     }
 
+    // Update table with new data
     public void refreshTable() {
         employeeTable.getItems().setAll(AppContext.getEmployeeCollection().getAllEmployees());
     }
+
+    // Delete an employee
+        @FXML
+        private void handleDeleteEmployee() {
+            Employee<Integer> selectedEmployee = employeeTable.getSelectionModel().getSelectedItem();
+
+            if (selectedEmployee == null) {
+                AppContext.showAlert("No employee selected", "Please select an employee to delete.");
+                return;
+            }
+
+            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmation.setTitle("Confirm Deletion");
+            confirmation.setHeaderText("Are you sure you want to delete employee, " + selectedEmployee.getName() + "? This action cannot be undone.");
+
+            Optional<ButtonType> result = confirmation.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                AppContext.getEmployeeCollection().removeEmployee(selectedEmployee.getEmployeeId());
+                refreshTable();
+            }
+        }
+
 }
