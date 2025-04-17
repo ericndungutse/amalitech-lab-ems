@@ -70,11 +70,13 @@ public class HelloApplication extends Application {
 
                 employeeCollection.getAllEmployees();
 
-                System.out.println("******************** AFTER A RAISE ***********************\n\n");
+                System.out.println("******************** TOP 5***********************\n\n");
 
-                employeeCollection.giveSalaryRaise(100, 4.6);
+                employeeCollection.displayEmployees(employeeCollection.getTop5HighestPaidEmployees());
+                System.out.println("******************** BOTTOM 5***********************\n\n");
+                // employeeCollection.giveSalaryRaise(100, 4.6);
 
-                employeeCollection.getAllEmployees();
+                // employeeCollection.getAllEmployees();
 
         }
 }

@@ -158,6 +158,16 @@ public class EmployeeCollection<T> {
         }
     }
 
+    // Retrieve the top 5 highest-paid employees.
+    public List<Employee<T>> getTop5HighestPaidEmployees() {
+        List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
+        Collections.sort(employeesList, (e1, e2) -> Double.compare(e2.getSalary(), e1.getSalary()));
+        // Use min method to ensure that if list contains less than 5 employees, it will
+        // not throw an exception, but will display the available employees.
+        // and will return the available employees.
+        return employeesList.subList(0, Math.min(5, employeesList.size()));
+    }
+
     // Display All Employees
     public void displayEmployees() {
         // Print header
