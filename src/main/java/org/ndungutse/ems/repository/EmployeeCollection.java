@@ -86,7 +86,7 @@ public class EmployeeCollection<T> {
     }
 
     // Get employees by department
-    public List<Employee<T>> getEmployeesBuDepartment(Department department) {
+    public List<Employee<T>> getEmployeesByDepartment(Department department) {
         List<Employee<T>> departmentEmployees = this.employees.values().stream()
                 .filter((employee) -> employee.getDepartment().equals(department)).collect(Collectors.toList());
 
@@ -166,6 +166,13 @@ public class EmployeeCollection<T> {
         // not throw an exception, but will display the available employees.
         // and will return the available employees.
         return employeesList.subList(0, Math.min(5, employeesList.size()));
+    }
+
+    // Calculate the average salary of employees by department.
+    public double calculateAverageSalaryByDepartment(Department department) {
+        List<Employee<T>> departmentEmployees = this.getEmployeesByDepartment(department);
+
+        return departmentEmployees.stream().mapToDouble(Employee::getSalary).average().orElse(0.0);
     }
 
     // Display All Employees

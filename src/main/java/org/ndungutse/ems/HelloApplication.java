@@ -68,12 +68,15 @@ public class HelloApplication extends Application {
                 // OFEXPERIENCE___________________");
                 // employeeCollection.sortEmployeesDescendingByExperience();
 
-                employeeCollection.getAllEmployees();
+                employeeCollection.displayEmployees(employeeCollection.getEmployeesByDepartment(Department.IT));
 
-                System.out.println("******************** TOP 5***********************\n\n");
+                System.out.println(employeeCollection.calculateAverageSalaryByDepartment(Department.IT));
 
-                employeeCollection.displayEmployees(employeeCollection.getTop5HighestPaidEmployees());
-                System.out.println("******************** BOTTOM 5***********************\n\n");
+                // System.out.println("******************** TOP 5***********************\n\n");
+
+                // employeeCollection.displayEmployees(employeeCollection.getTop5HighestPaidEmployees());
+                // System.out.println("******************** BOTTOM
+                // 5***********************\n\n");
                 // employeeCollection.giveSalaryRaise(100, 4.6);
 
                 // employeeCollection.getAllEmployees();
