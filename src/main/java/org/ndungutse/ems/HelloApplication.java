@@ -57,29 +57,38 @@ public class HelloApplication extends Application {
                 // ***********************");
                 // System.out.println(employeeCollection.getEmployeesByPerformanceRating(4.5));
 
-                System.out.println("\n");
-                System.out.println("____________ BOFORE SORT BY YEAR OF EXPERIENCE ___________________\n\n");
-                // employeeCollection.getAllEmployees();
-                System.out.println("____________ AFTER SORT BY YEAR OF EXPERIENCE ___________________\n\n");
-                // employeeCollection.sortEmployeesBySalaryDescending();
-                // employeeCollection.sortEmployeesByPerformanceRatingDesc();
-                // employeeCollection.getAllEmployees();
-                // System.out.println("____________ AFTER SORT BY YEAR
-                // OFEXPERIENCE___________________");
-                // employeeCollection.sortEmployeesDescendingByExperience();
+                // System.out.println("\n");
+                // System.out.println("____________ BEFORE SORT BY YEAR OF EXPERIENCE
+                // ___________________\n\n");
+                // // employeeCollection.getAllEmployees();
+                // System.out.println("____________ AFTER SORT BY YEAR OF EXPERIENCE
+                // ___________________\n\n");
+                // // employeeCollection.sortEmployeesBySalaryDescending();
+                // // employeeCollection.sortEmployeesByPerformanceRatingDesc();
+                // // employeeCollection.getAllEmployees();
+                // // System.out.println("____________ AFTER SORT BY YEAR
+                // // OF EXPERIENCE___________________");
+                // // employeeCollection.sortEmployeesDescendingByExperience();
 
-                employeeCollection.displayEmployees(employeeCollection.getEmployeesByDepartment(Department.IT));
+                // employeeCollection.displayEmployees(employeeCollection.getEmployeesByDepartment(Department.IT),
+                // "IT Department");
 
-                System.out.println(employeeCollection.calculateAverageSalaryByDepartment(Department.IT));
+                // System.out.println(employeeCollection.calculateAverageSalaryByDepartment(Department.IT));
 
-                // System.out.println("******************** TOP 5***********************\n\n");
-
-                // employeeCollection.displayEmployees(employeeCollection.getTop5HighestPaidEmployees());
-                // System.out.println("******************** BOTTOM
+                // // System.out.println("******************** TOP
                 // 5***********************\n\n");
-                // employeeCollection.giveSalaryRaise(100, 4.6);
 
+                // //
+                // employeeCollection.displayEmployees(employeeCollection.getTop5HighestPaidEmployees());
+                // // System.out.println("******************** BOTTOM
+                // // 5***********************\n\n");
+                // // employeeCollection.giveSalaryRaise(100, 4.6);
+
+                // // employeeCollection.getAllEmployees();
                 // employeeCollection.getAllEmployees();
 
+                employeeCollection.getAllEmployees();
+                employeeCollection.displayEmployees(employeeCollection.getTop5HighestPaidEmployees(),
+                                "Top 5 Highest Paid Employees");
         }
 }

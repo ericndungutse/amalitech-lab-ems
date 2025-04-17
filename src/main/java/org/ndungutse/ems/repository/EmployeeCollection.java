@@ -81,8 +81,9 @@ public class EmployeeCollection<T> {
 
     // Get All employees and display them
     public List<Employee<T>> getAllEmployees() {
-        displayEmployees();
-        return new ArrayList<>(this.employees.values());
+        List<Employee<T>> employeesList = new ArrayList<>(this.employees.values());
+        displayEmployees(employeesList, "All Employees");
+        return employeesList;
     }
 
     // Get employees by department
@@ -122,16 +123,15 @@ public class EmployeeCollection<T> {
     public List<Employee<T>> sortEmployeesByExperienceDesc() {
         List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
         Collections.sort(employeesList);
-        displayEmployees(employeesList);
+        displayEmployees(employeesList, "Sorted Employees by Experience");
         return employeesList;
     }
 
     // Sort employees by salary in descending order
     public List<Employee<T>> sortEmployeesBySalaryDesc() {
         List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
-        displayEmployees(employeesList);
         employeesList.sort((e1, e2) -> Double.compare(e2.getSalary(), e1.getSalary()));
-        displayEmployees(employeesList);
+        displayEmployees(employeesList, "Sorted Employees by Salary");
         return employeesList;
     }
 
@@ -140,7 +140,8 @@ public class EmployeeCollection<T> {
         List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
         Collections.sort(employeesList,
                 (e1, e2) -> Double.compare(e2.getPerformanceRating(), e1.getPerformanceRating()));
-        displayEmployees(employeesList);
+
+        displayEmployees(employeesList, "Sorted Employees by Performance Rating");
         return employeesList;
     }
 
@@ -175,47 +176,32 @@ public class EmployeeCollection<T> {
         return departmentEmployees.stream().mapToDouble(Employee::getSalary).average().orElse(0.0);
     }
 
-    // Display All Employees
-    public void displayEmployees() {
-        // Print header
-        System.out.println("======================================================================================");
-        System.out.printf("%-12s %-15s %-15s %-10s %-10s %-12s %-8s%n",
-                "Employee ID", "Name", "Department", "Salary", "Rating", "Experience", "Active");
-        System.out.println("======================================================================================");
-
-        // Iterate and print each employee
-        Iterator<Employee<T>> iterator = this.employees.values().iterator();
-        while (iterator.hasNext()) {
-            Employee<T> emp = iterator.next();
-            System.out.printf("%-12s %-15s %-15s $%-9.2f %-10.1f %-12s %-8s%n",
-                    emp.getEmployeeId(),
-                    emp.getName(),
-                    emp.getDepartment(),
-                    emp.getSalary(),
-                    emp.getPerformanceRating(),
-                    emp.getYearsOfExperience() + " yrs",
-                    emp.isActive() ? "Yes" : "No");
-        }
-    }
-
     // Display employees
-    public void displayEmployees(List<Employee<T>> employees) {
-        // Print header
-        System.out.println("======================================================================================");
+    public void displayEmployees(List<Employee<T>> employees, String title) {
 
-        System.out.printf("%-12s %-15s %-15s %-10s %-10s %-12s %-8s%n",
+        System.out.println("\n\n");
+
+        System.out.println("================================== " + title + "==================================");
+        System.out.println(
+                "____________________________________________________________________________________________________");
+        String header = String.format("%-15s | %-15s | %-15s | %-10s | %-10s | %-12s | %-8s",
                 "Employee ID", "Name", "Department", "Salary", "Rating", "Experience", "Active");
-        System.out.println("======================================================================================");
+        String divider = "----------------+-----------------+-----------------+------------+------------+--------------+-------";
+
+        System.out.println(header);
+        System.out.println(divider);
 
         // Print each employee
-        employees.stream().forEach(e -> System.out.printf("%-12s %-15s %-15s $%-9.2f %-10.1f %-12s %-8s%n",
-                e.getEmployeeId(),
-                e.getName(),
-                e.getDepartment(),
-                e.getSalary(),
-                e.getPerformanceRating(),
-                e.getYearsOfExperience() + " yrs",
-                e.isActive() ? "Yes" : "No"));
+        employees.stream()
+                .forEach(e -> System.out
+                        .print(String.format("%-15s | %-15s | %-15s | %-10s | %-10s | %-12s | %-8s%n",
+                                e.getEmployeeId(),
+                                e.getName(),
+                                e.getDepartment(),
+                                e.getSalary(),
+                                e.getPerformanceRating(),
+                                e.getYearsOfExperience() + " yrs",
+                                e.isActive() ? "Yes" : "No")));
     }
 
     @Override
