@@ -2,7 +2,9 @@ package org.ndungutse.ems;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -14,18 +16,30 @@ import org.ndungutse.ems.repository.EmployeeCollection;
 public class HelloApplication extends Application {
         @Override
         public void start(Stage stage) throws IOException {
+                // Load the FXML file
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-                Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+
+                // Get screen dimensions
+                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+
+                // Load the FXML and set the scene size to the screen's width and height
+                Scene scene = new Scene(fxmlLoader.load(), screenBounds.getWidth(), screenBounds.getHeight());
+
+                // Set the title of the window
                 stage.setTitle("Hello!");
+
+                // Set the scene and show the stage
                 stage.setScene(scene);
+
+                // Maximize the window to take the full screen size
+                stage.setMaximized(true);
+
+                // Show the stage
                 stage.show();
         }
+        public static final EmployeeCollection<Integer> employeeCollection = CollectionSelector.getEmployeeCollection();
 
         public static void main(String[] args) {
-                // launch();
-
-                EmployeeCollection<Integer> employeeCollection = new EmployeeCollection<>();
-
                 employeeCollection.addEmployee(new Employee<>(1, "Eric", Department.IT, 1500, 4.5, 3, true));
                 employeeCollection.addEmployee(new Employee<>(2, "Camariza", Department.FINANCE, 3200, 3.9, 5, true));
                 employeeCollection.addEmployee(new Employee<>(3, "Lodrigues", Department.HR, 2700, 4.1, 4, true));
@@ -87,8 +101,6 @@ public class HelloApplication extends Application {
                 // // employeeCollection.getAllEmployees();
                 // employeeCollection.getAllEmployees();
 
-                employeeCollection.getAllEmployees();
-                employeeCollection.displayEmployees(employeeCollection.getTop5HighestPaidEmployees(),
-                                "Top 5 Highest Paid Employees");
+                launch();
         }
 }
