@@ -37,21 +37,31 @@ public class HelloApplication extends Application {
                 employeeCollection.addEmployee(new Employee<>(9, "Albert", Department.FINANCE, 10000, 4.9, 10, true));
                 employeeCollection.addEmployee(new Employee<>(10, "Christine", Department.IT, 1500, 4.3, 3, true));
 
-                // Example test method calls
-                System.out.println("********************* Search by name: 'ric'**************");
-                System.out.println(employeeCollection.getEmployeeByName("ric"));
+                // // Example test method calls
+                // System.out.println("********************* Search by name:
+                // 'ric'**************");
+                // System.out.println(employeeCollection.getEmployeeByName("ric"));
 
-                System.out.println("\n ----------------- IT Department Employees:--------------------]=");
-                System.out.println(employeeCollection.getEmployeesBuDepartment(Department.IT));
+                // System.out.println("\n ----------------- IT Department
+                // Employees:--------------------]=");
+                // System.out.println(employeeCollection.getEmployeesBuDepartment(Department.IT));
 
-                System.out.println("\n &&&&&&&&&&&&&&&&&&&&&& Employees with salary between$1,000 and $5,000:");
-                System.out.println(employeeCollection.getEmployeesBySalaryRange(1000, 5000));
+                // System.out.println("\n &&&&&&&&&&&&&&&&&&&&&& Employees with salary
+                // between$1,000 and $5,000:");
+                // System.out.println(employeeCollection.getEmployeesBySalaryRange(1000, 5000));
 
                 // employeeCollection.getAllEmployees();
 
-                System.out.println(
-                                "\n *********************** Employees with rating greater than 4.5: ***********************");
-                System.out.println(employeeCollection.getEmployeesByPerformanceRating(4.5));
+                // System.out.println(
+                // "\n *********************** Employees with rating greater than 4.5:
+                // ***********************");
+                // System.out.println(employeeCollection.getEmployeesByPerformanceRating(4.5));
+
+                System.out.println("\n");
+                System.out.println("____________ BOFORE SORT BY YEAR OF EXPERIENCE ___________________\n\n");
+                employeeCollection.getAllEmployees();
+                System.out.println("____________ AFTER SORT BY YEAR OFEXPERIENCE___________________");
+                employeeCollection.sortEmployeesDescendingByExperience();
 
         }
 }

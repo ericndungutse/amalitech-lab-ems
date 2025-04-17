@@ -1,6 +1,7 @@
 package org.ndungutse.ems.repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -110,27 +111,62 @@ public class EmployeeCollection<T> {
         return emp;
     }
 
-    // Display Employees
-    public void displayEmployees() {
-        Iterator<Employee<T>> iterator = this.employees.values().iterator();
-        while (iterator.hasNext()) {
-            Employee<T> emp = iterator.next();
-            System.out.println("==================================");
-            System.out.println("Employee ID: " + emp.getEmployeeId());
-            System.out.println("Name       : " + emp.getName());
-            System.out.println("Department : " + emp.getDepartment());
-            System.out.println("Salary     : $" + emp.getSalary());
-            System.out.println("Rating     : " + emp.getPerformanceRating());
-            System.out.println("Experience : " + emp.getYearsOfExperience() + " years");
-            System.out.println("Active     : " + (emp.isActive() ? "Yes" : "No"));
-        }
-    }
-
     // Employees with minimum performance rating (e.g., rating >= 4.0).
     public List<Employee<T>> getEmployeesByPerformanceRating(double minRating) {
         List<Employee<T>> emp = this.employees.values().stream()
                 .filter(employee -> employee.getPerformanceRating() >= minRating).collect(Collectors.toList());
         return emp;
+    }
+
+    // Sort employees by years of experience in descending order
+    public List<Employee<T>> sortEmployeesDescendingByExperience() {
+        List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
+        Collections.sort(employeesList);
+        displayEmployees(employeesList);
+        return employeesList;
+    }
+
+    // Display All Employees
+    public void displayEmployees() {
+        // Print header
+        System.out.println("======================================================================================");
+        System.out.printf("%-12s %-15s %-15s %-10s %-10s %-12s %-8s%n",
+                "Employee ID", "Name", "Department", "Salary", "Rating", "Experience", "Active");
+        System.out.println("======================================================================================");
+
+        // Iterate and print each employee
+        Iterator<Employee<T>> iterator = this.employees.values().iterator();
+        while (iterator.hasNext()) {
+            Employee<T> emp = iterator.next();
+            System.out.printf("%-12s %-15s %-15s $%-9.2f %-10.1f %-12s %-8s%n",
+                    emp.getEmployeeId(),
+                    emp.getName(),
+                    emp.getDepartment(),
+                    emp.getSalary(),
+                    emp.getPerformanceRating(),
+                    emp.getYearsOfExperience() + " yrs",
+                    emp.isActive() ? "Yes" : "No");
+        }
+    }
+
+    // Display employees
+    public void displayEmployees(List<Employee<T>> employees) {
+        // Print header
+        System.out.println("======================================================================================");
+
+        System.out.printf("%-12s %-15s %-15s %-10s %-10s %-12s %-8s%n",
+                "Employee ID", "Name", "Department", "Salary", "Rating", "Experience", "Active");
+        System.out.println("======================================================================================");
+
+        // Print each employee
+        employees.stream().forEach(e -> System.out.printf("%-12s %-15s %-15s $%-9.2f %-10.1f %-12s %-8s%n",
+                e.getEmployeeId(),
+                e.getName(),
+                e.getDepartment(),
+                e.getSalary(),
+                e.getPerformanceRating(),
+                e.getYearsOfExperience() + " yrs",
+                e.isActive() ? "Yes" : "No"));
     }
 
     @Override
