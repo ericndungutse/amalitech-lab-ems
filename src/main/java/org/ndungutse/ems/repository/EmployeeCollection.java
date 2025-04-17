@@ -144,6 +144,20 @@ public class EmployeeCollection<T> {
         return employeesList;
     }
 
+    // Give a salary raise to employees with high performance ratings (e.g., rating
+    // ≥ 4.5).
+    public void giveSalaryRaise(double percentage, double minRating) {
+        Iterator<Employee<T>> iterator = this.employees.values().iterator();
+
+        while (iterator.hasNext()) {
+            Employee<T> employee = iterator.next();
+            if (employee.getPerformanceRating() >= minRating) {
+                double newSalary = employee.getSalary() + (employee.getSalary() * percentage / 100);
+                employee.setSalary(newSalary);
+            }
+        }
+    }
+
     // Display All Employees
     public void displayEmployees() {
         // Print header

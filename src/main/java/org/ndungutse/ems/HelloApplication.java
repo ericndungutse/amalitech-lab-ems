@@ -62,11 +62,19 @@ public class HelloApplication extends Application {
                 // employeeCollection.getAllEmployees();
                 System.out.println("____________ AFTER SORT BY YEAR OF EXPERIENCE ___________________\n\n");
                 // employeeCollection.sortEmployeesBySalaryDescending();
-                employeeCollection.sortEmployeesByPerformanceRatingDesc();
+                // employeeCollection.sortEmployeesByPerformanceRatingDesc();
                 // employeeCollection.getAllEmployees();
                 // System.out.println("____________ AFTER SORT BY YEAR
                 // OFEXPERIENCE___________________");
                 // employeeCollection.sortEmployeesDescendingByExperience();
+
+                employeeCollection.getAllEmployees();
+
+                System.out.println("******************** AFTER A RAISE ***********************\n\n");
+
+                employeeCollection.giveSalaryRaise(100, 4.6);
+
+                employeeCollection.getAllEmployees();
 
         }
 }
