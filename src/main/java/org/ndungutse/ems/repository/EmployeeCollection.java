@@ -126,6 +126,15 @@ public class EmployeeCollection<T> {
         return employeesList;
     }
 
+    // Sort employees by salary in descending order
+    public List<Employee<T>> sortEmployeesBySalaryDescending() {
+        List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
+        displayEmployees(employeesList);
+        employeesList.sort((e1, e2) -> Double.compare(e2.getSalary(), e1.getSalary()));
+        displayEmployees(employeesList);
+        return employeesList;
+    }
+
     // Display All Employees
     public void displayEmployees() {
         // Print header
