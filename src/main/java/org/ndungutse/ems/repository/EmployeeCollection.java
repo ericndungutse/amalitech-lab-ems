@@ -86,7 +86,7 @@ public class EmployeeCollection<T> {
     }
 
     // Get employees by department
-    public List<Employee<T>> getEmployeesBuDepartment(Department department) {
+    public List<Employee<T>> getEmployeesByDepartment(Department department) {
         List<Employee<T>> departmentEmployees = this.employees.values().stream()
                 .filter((employee) -> employee.getDepartment().equals(department)).collect(Collectors.toList());
 
@@ -142,6 +142,37 @@ public class EmployeeCollection<T> {
                 (e1, e2) -> Double.compare(e2.getPerformanceRating(), e1.getPerformanceRating()));
         displayEmployees(employeesList);
         return employeesList;
+    }
+
+    // Give a salary raise to employees with high performance ratings (e.g., rating
+    // ≥ 4.5).
+    public void giveSalaryRaise(double percentage, double minRating) {
+        Iterator<Employee<T>> iterator = this.employees.values().iterator();
+
+        while (iterator.hasNext()) {
+            Employee<T> employee = iterator.next();
+            if (employee.getPerformanceRating() >= minRating) {
+                double newSalary = employee.getSalary() + (employee.getSalary() * percentage / 100);
+                employee.setSalary(newSalary);
+            }
+        }
+    }
+
+    // Retrieve the top 5 highest-paid employees.
+    public List<Employee<T>> getTop5HighestPaidEmployees() {
+        List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
+        Collections.sort(employeesList, (e1, e2) -> Double.compare(e2.getSalary(), e1.getSalary()));
+        // Use min method to ensure that if list contains less than 5 employees, it will
+        // not throw an exception, but will display the available employees.
+        // and will return the available employees.
+        return employeesList.subList(0, Math.min(5, employeesList.size()));
+    }
+
+    // Calculate the average salary of employees by department.
+    public double calculateAverageSalaryByDepartment(Department department) {
+        List<Employee<T>> departmentEmployees = this.getEmployeesByDepartment(department);
+
+        return departmentEmployees.stream().mapToDouble(Employee::getSalary).average().orElse(0.0);
     }
 
     // Display All Employees
