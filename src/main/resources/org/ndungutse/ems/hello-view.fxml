@@ -6,7 +6,7 @@
 
 <VBox spacing="20" xmlns:fx="http://javafx.com/fxml/1"
       xmlns="http://javafx.com/javafx/17.0.12"
-      fx:controller="org.ndungutse.ems.HelloController">
+      fx:controller="org.ndungutse.ems.HelloController" style="-fx-background-color: white;">
 
     <padding>
         <Insets top="20" right="20" bottom="20" left="20"/>
@@ -30,6 +30,6 @@
                 <TableColumn fx:id="statusColumn" text="Active" prefWidth="100"/>
             </columns>
         </TableView>
-        <Button onAction="#handleNewEmployee" text="Add Employee" />
     </HBox>
+        <Button onAction="#handleNewEmployee" text="Add Employee" />
 </VBox>

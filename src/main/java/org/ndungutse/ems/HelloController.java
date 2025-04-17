@@ -47,7 +47,7 @@ public class HelloController {
     @FXML
     private TableColumn<Employee<Integer>, Boolean> statusColumn;
 
-    private final EmployeeCollection<Integer> employeeCollection = CollectionSelector.getEmployeeCollection();
+    private final EmployeeCollection<Integer> employeeCollection = AppContext.getEmployeeCollection();
 
 
     @FXML
@@ -74,6 +74,12 @@ public class HelloController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-employee.fxml"));
             Parent popupRoot = fxmlLoader.load();
 
+            // Get the AddEmployee controller
+            AddEmployee addEmployeeController = fxmlLoader.getController();
+
+            // Pass this HelloController to it
+            addEmployeeController.setHelloController(this);
+
             // Create a new stage for the popup
             Stage popupStage = new Stage();
             popupStage.setTitle("Add New Employee");
@@ -87,5 +93,9 @@ public class HelloController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void refreshTable() {
+        employeeTable.getItems().setAll(HelloApplication.employeeCollection.getAllEmployees());
     }
 }

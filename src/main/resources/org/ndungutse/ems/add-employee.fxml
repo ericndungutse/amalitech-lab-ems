@@ -61,8 +61,8 @@
 
             <!-- Buttons -->
             <HBox spacing="20" alignment="CENTER">
-                <Button fx:id="addButton" text="Add" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
-                <Button fx:id="cancelButton" text="Cancel" style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+                <Button onAction="#handleAddEmployee" text="Add" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                <Button onAction="#closeModel" text="Cancel" fx:id="cancelButton" style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
             </HBox>
         </VBox>
     </children>

@@ -19,11 +19,8 @@ public class HelloApplication extends Application {
                 // Load the FXML file
                 FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-                // Get screen dimensions
-                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
-
                 // Load the FXML and set the scene size to the screen's width and height
-                Scene scene = new Scene(fxmlLoader.load(), screenBounds.getWidth(), screenBounds.getHeight());
+                Scene scene = new Scene(fxmlLoader.load(),1200, 600);
 
                 // Set the title of the window
                 stage.setTitle("Hello!");
@@ -31,13 +28,10 @@ public class HelloApplication extends Application {
                 // Set the scene and show the stage
                 stage.setScene(scene);
 
-                // Maximize the window to take the full screen size
-                stage.setMaximized(true);
-
                 // Show the stage
                 stage.show();
         }
-        public static final EmployeeCollection<Integer> employeeCollection = CollectionSelector.getEmployeeCollection();
+        public static final EmployeeCollection<Integer> employeeCollection = AppContext.getEmployeeCollection();
 
         public static void main(String[] args) {
                 employeeCollection.addEmployee(new Employee<>(1, "Eric", Department.IT, 1500, 4.5, 3, true));
