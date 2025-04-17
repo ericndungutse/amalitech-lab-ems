@@ -119,7 +119,7 @@ public class EmployeeCollection<T> {
     }
 
     // Sort employees by years of experience in descending order
-    public List<Employee<T>> sortEmployeesDescendingByExperience() {
+    public List<Employee<T>> sortEmployeesByExperienceDesc() {
         List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
         Collections.sort(employeesList);
         displayEmployees(employeesList);
@@ -127,10 +127,19 @@ public class EmployeeCollection<T> {
     }
 
     // Sort employees by salary in descending order
-    public List<Employee<T>> sortEmployeesBySalaryDescending() {
+    public List<Employee<T>> sortEmployeesBySalaryDesc() {
         List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
         displayEmployees(employeesList);
         employeesList.sort((e1, e2) -> Double.compare(e2.getSalary(), e1.getSalary()));
+        displayEmployees(employeesList);
+        return employeesList;
+    }
+
+    // Sorts employees by performance rating (best first).
+    public List<Employee<T>> sortEmployeesByPerformanceRatingDesc() {
+        List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
+        Collections.sort(employeesList,
+                (e1, e2) -> Double.compare(e2.getPerformanceRating(), e1.getPerformanceRating()));
         displayEmployees(employeesList);
         return employeesList;
     }

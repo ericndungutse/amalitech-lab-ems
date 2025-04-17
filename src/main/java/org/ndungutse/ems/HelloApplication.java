@@ -61,7 +61,8 @@ public class HelloApplication extends Application {
                 System.out.println("____________ BOFORE SORT BY YEAR OF EXPERIENCE ___________________\n\n");
                 // employeeCollection.getAllEmployees();
                 System.out.println("____________ AFTER SORT BY YEAR OF EXPERIENCE ___________________\n\n");
-                employeeCollection.sortEmployeesBySalaryDescending();
+                // employeeCollection.sortEmployeesBySalaryDescending();
+                employeeCollection.sortEmployeesByPerformanceRatingDesc();
                 // employeeCollection.getAllEmployees();
                 // System.out.println("____________ AFTER SORT BY YEAR
                 // OFEXPERIENCE___________________");
