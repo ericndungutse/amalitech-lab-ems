@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.ndungutse.ems.AddEmployee"
+            prefHeight="400.0" prefWidth="600.0"
+            style="-fx-background-color: white;">
+
+    <children>
+        <VBox spacing="20" alignment="TOP_CENTER" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+
+            <!-- Title -->
+            <Label text="Add Employee" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+            <!-- Grid Form -->
+            <GridPane hgap="15" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="150" halignment="RIGHT"/>
+                    <ColumnConstraints minWidth="300"/>
+                </columnConstraints>
+
+                <rowConstraints>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="30"/>
+                    <RowConstraints minHeight="30"/>
+                </rowConstraints>
+
+                <children>
+                    <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <TextField fx:id="nameField" promptText="Enter Full Name" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                    <Label text="Department:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <ComboBox fx:id="departmentComboBox" prefWidth="200" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                    <Label text="Salary:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <TextField fx:id="salaryField" promptText="Enter Salary" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                    <Label text="Performance Rating:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                    <TextField fx:id="performanceRatingField" promptText="e.g. 4.5" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                    <Label text="Years of Experience:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                    <TextField fx:id="yearsOfExperienceField" promptText="Enter Years" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                    <Label text="Active:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                    <CheckBox fx:id="activeCheckBox" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                </children>
+            </GridPane>
+
+            <!-- Buttons -->
+            <HBox spacing="20" alignment="CENTER">
+                <Button fx:id="addButton" text="Add" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                <Button fx:id="cancelButton" text="Cancel" style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

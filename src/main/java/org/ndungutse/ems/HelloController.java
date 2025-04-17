@@ -4,13 +4,20 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.ndungutse.ems.models.Employee;
 import org.ndungutse.ems.repository.EmployeeCollection;
 
+import java.io.IOException;
 import java.util.List;
 
 public class HelloController {
@@ -60,4 +67,25 @@ public class HelloController {
         // Add to the table
         employeeTable.getItems().setAll(employees);
 }
+
+    public void handleNewEmployee(ActionEvent event) throws IOException {
+        try {
+            // Load the FXML for the popup
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("add-employee.fxml"));
+            Parent popupRoot = fxmlLoader.load();
+
+            // Create a new stage for the popup
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Add New Employee");
+            popupStage.setScene(new Scene(popupRoot));
+            popupStage.initModality(Modality.APPLICATION_MODAL); // Block other windows until closed
+            popupStage.setResizable(false); // Optional
+
+            // Show the popup and wait
+            popupStage.showAndWait();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
