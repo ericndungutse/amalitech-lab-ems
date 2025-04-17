@@ -3,33 +3,43 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox spacing="20" xmlns:fx="http://javafx.com/fxml/1"
+<VBox spacing="25" xmlns:fx="http://javafx.com/fxml/1"
       xmlns="http://javafx.com/javafx/17.0.12"
-      fx:controller="org.ndungutse.ems.HelloController" style="-fx-background-color: white;">
+      fx:controller="org.ndungutse.ems.HelloController"
+      style="-fx-background-color: #f9f9f9; -fx-padding: 30;">
 
-    <padding>
-        <Insets top="20" right="20" bottom="20" left="20"/>
-    </padding>
-
-    <!-- Label aligned to top right -->
-    <HBox alignment="TOP_LEFT">
-        <Label fx:id="welcomeText" text="Welcome to the EMS Dashboard" />
+    <!-- Welcome Message -->
+    <HBox alignment="CENTER_LEFT">
+        <Label fx:id="welcomeText"
+               text="Welcome to the EMS Dashboard"
+               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
     </HBox>
 
-    <!-- Center the table with fixed width -->
+    <!-- Table Centered with Fixed Width -->
     <HBox alignment="TOP_LEFT">
-        <TableView fx:id="employeeTable" prefWidth="800" prefHeight="400">
+        <TableView fx:id="employeeTable"
+                   prefWidth="850"
+                   prefHeight="450"
+                   style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8;">
             <columns>
-                <TableColumn fx:id="idColumn" text="ID" prefWidth="100"/>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="80"/>
                 <TableColumn fx:id="nameColumn" text="Name" prefWidth="150"/>
                 <TableColumn fx:id="departmentColumn" text="Department" prefWidth="150"/>
                 <TableColumn fx:id="salaryColumn" text="Salary" prefWidth="100"/>
                 <TableColumn fx:id="ratingColumn" text="Rating" prefWidth="100"/>
-                <TableColumn fx:id="experienceColumn" text="Experience" prefWidth="100"/>
+                <TableColumn fx:id="experienceColumn" text="Experience" prefWidth="120"/>
                 <TableColumn fx:id="statusColumn" text="Active" prefWidth="100"/>
             </columns>
         </TableView>
     </HBox>
-        <Button onAction="#handleNewEmployee" text="Add Employee" />
+
+    <!-- Add Employee Button Centered Below -->
+    <HBox alignment="BOTTOM_LEFT">
+        <Button text="Add Employee"
+                onAction="#handleNewEmployee"
+                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 5;"/>
+    </HBox>
+
 </VBox>

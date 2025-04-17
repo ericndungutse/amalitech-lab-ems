@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import org.ndungutse.ems.exceptions.AppException;
 import org.ndungutse.ems.models.Department;
 import org.ndungutse.ems.models.Employee;
 import org.ndungutse.ems.repository.EmployeeCollection;
@@ -27,7 +28,6 @@ public class AddEmployee implements Initializable {
     private HelloController helloController;
     private final EmployeeCollection<Integer> employeeCollection = AppContext.getEmployeeCollection();
 
-    private int idCounter = 11;
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Initializing...");
         departmentComboBox.getItems().addAll(Department.values());
@@ -39,30 +39,35 @@ public class AddEmployee implements Initializable {
 
     @FXML
     private void handleAddEmployee() {
+        try {
             String name = nameField.getText().trim();
+            String salaryText = salaryField.getText().trim();
+            String ratingText = performanceRatingField.getText().trim();
+            String experienceText = yearsOfExperienceField.getText().trim();
             Department department = departmentComboBox.getValue();
-            double salary = Double.parseDouble(salaryField.getText().trim());
-            double performanceRating = Double.parseDouble(performanceRatingField.getText().trim());
-            int yearsOfExperience = Integer.parseInt(yearsOfExperienceField.getText().trim());
             boolean isActive = activeCheckBox.isSelected();
 
+            if (name.isEmpty() || salaryText.isEmpty() || ratingText.isEmpty() || experienceText.isEmpty()) {
+                throw new AppException("All fields must be filled.");
+            }
 
-            Employee<Integer> employee = new Employee<>(idCounter++,name, department, salary, performanceRating, yearsOfExperience, isActive);
+            Employee<Integer> employee = new Employee<>(employeeCollection.generateNewEmployeeId(), name, department, Double.parseDouble(salaryText), Double.parseDouble(ratingText), Integer.parseInt(experienceText), isActive);
             employeeCollection.addEmployee(employee);
 
             // Example: print to console or add to a data store
             System.out.println("Added Employee: " + employee);
 
-            employeeCollection.displayEmployees(employeeCollection.getAllEmployees(), "All Employees");
-
-
             this.closeModel();
             helloController.refreshTable();
             AppContext.showAlert( "New employee", "Employee added successful");
-//            clearForm();
-
-
-
+        }catch (AppException e){
+            AppContext.showErrorAlert("Error", e.getMessage());
+        }catch (NumberFormatException e){
+            AppContext.showErrorAlert("Invalid Input", e.getMessage());
+        } catch (Exception e){
+            System.out.println(e);
+            AppContext.showErrorAlert("Error", "Somthing went wrong! Try again later.");
+        }
 
     }
 
@@ -72,13 +77,4 @@ public class AddEmployee implements Initializable {
         cancelButton.getScene().getWindow().hide();
     }
 
-    // Clear the form
-    private void clearForm() {
-        nameField.clear();
-        departmentComboBox.getSelectionModel().clearSelection();
-        salaryField.clear();
-        performanceRatingField.clear();
-        yearsOfExperienceField.clear();
-        activeCheckBox.setSelected(false);
-    }
 }

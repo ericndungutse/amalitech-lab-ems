@@ -52,7 +52,7 @@ public class HelloController {
 
     @FXML
     public void initialize() {
-        // Set up column value factories
+        employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         idColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getEmployeeId()).asObject());
         nameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
         departmentColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getDepartment().toString()));
@@ -76,8 +76,6 @@ public class HelloController {
 
             // Get the AddEmployee controller
             AddEmployee addEmployeeController = fxmlLoader.getController();
-
-            // Pass this HelloController to it
             addEmployeeController.setHelloController(this);
 
             // Create a new stage for the popup
@@ -96,6 +94,6 @@ public class HelloController {
     }
 
     public void refreshTable() {
-        employeeTable.getItems().setAll(HelloApplication.employeeCollection.getAllEmployees());
+        employeeTable.getItems().setAll(AppContext.getEmployeeCollection().getAllEmployees());
     }
 }
