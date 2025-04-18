@@ -3,13 +3,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="25" style="-fx-background-color: #f9f9f9; -fx-padding: 30; -fx-font-size: 18px" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ndungutse.ems.HelloController">
+<VBox spacing="25" style="-fx-background-color: #f9f9f9; -fx-padding: 30; -fx-font-size: 16px" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ndungutse.ems.HelloController">
+
+    <!-- Welcome Message -->
     <HBox alignment="CENTER_LEFT">
         <Label fx:id="welcomeText" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Welcome to the EMS Dashboard" />
     </HBox>
 
     <HBox alignment="TOP_LEFT" prefHeight="629.0" prefWidth="1930.0" spacing="30">
+
+        <!-- Left: Table and Actions -->
         <VBox minWidth="-Infinity" prefHeight="557.0" prefWidth="1400.0" spacing="20">
+
+            <!-- Search & Sort Controls -->
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <TextField fx:id="searchField" promptText="Search by name..." style="-fx-pref-width: 250;" />
                 <Button fx:id="searchButton" defaultButton="true" onAction="#handleSearchByName" style="-fx-background-color: #2980b9; -fx-text-fill: white;" text="Search" />
@@ -25,6 +31,7 @@
                 </HBox>
             </HBox>
 
+            <!-- Employee Table -->
             <TableView fx:id="employeeTable" prefHeight="564.0" prefWidth="1400" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8;">
                 <columns>
                     <TableColumn fx:id="idColumn" prefWidth="80" text="ID" />
@@ -37,14 +44,24 @@
                 </columns>
             </TableView>
 
-            <!-- Action Buttons -->
-            <HBox spacing="10">
+            <!-- Action & Stats Buttons -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
                 <Button onAction="#handleNewEmployee" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Add Employee" />
                 <Button onAction="#handleDeleteEmployee" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Delete Selected" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-font-size: 14">
+                    <Button onAction="#handleTop5HighestPaid" style="-fx-background-color: #8e44ad; -fx-text-fill: white;" text="Top 5 Highest Paid" />
+
+                    <ComboBox fx:id="departmentAvgComboBox" promptText="Select department" style="-fx-pref-width: 160;" />
+                    <Button onAction="#handleAverageSalaryByDepartment" style="-fx-background-color: #16a085; -fx-text-fill: white;" text="Average Salary (Dept)" />
+                    <Label fx:id="averageSalaryLabel" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="Average: -" />
+                </HBox>
             </HBox>
         </VBox>
 
-        <!-- Right: Filter Panel -->
+        <!-- Right Panel: Filters -->
         <VBox maxHeight="-Infinity" prefHeight="566.0" prefWidth="441.0" spacing="25" style="-fx-background-color: #ffffff; -fx-padding: 25; -fx-border-color: #dcdcdc; -fx-border-radius: 10; -fx-font-size:16px; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.1, 0, 2);">
 
             <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-size:22px" text="Filters" />
@@ -65,12 +82,16 @@
             </VBox>
 
             <Separator />
+
+            <!-- Rating Filter -->
             <VBox spacing="8">
                 <Label style="-fx-font-weight: bold;" text="Min Rating" />
                 <TextField fx:id="minRatingField" promptText="e.g., 4.0" />
             </VBox>
 
             <Separator />
+
+            <!-- Filter Buttons -->
             <HBox alignment="CENTER" spacing="10">
                 <Button onAction="#handleApplyFilters" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Apply All Filters" />
                 <Button onAction="#handleClearAllFilters" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Clear All" />

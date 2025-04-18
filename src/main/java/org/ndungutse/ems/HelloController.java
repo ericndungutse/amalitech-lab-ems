@@ -28,9 +28,12 @@ public class HelloController {
     @FXML
     private ComboBox<Department> departmentComboBox;
     @FXML
-    private ComboBox<Department> filterDepartmentComboBox;
+    private ComboBox<Department> departmentAvgComboBox;
     @FXML
     private TextField minSalaryField;
+
+    @FXML
+    private Label averageSalaryLabel;
 
     @FXML
     private TextField maxSalaryField;
@@ -66,6 +69,7 @@ public class HelloController {
     private final EmployeeCollection<Integer> employeeCollection = AppContext.getEmployeeCollection();
     @FXML
     public void initialize() {
+        departmentAvgComboBox.getItems().addAll(Department.values());
         departmentComboBox.getItems().addAll(Department.values());
         employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         idColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getEmployeeId()).asObject());
@@ -197,5 +201,16 @@ public class HelloController {
     public void handleSortByRating(ActionEvent event) {
         List<Employee<Integer>> employeesByRating = AppContext.getEmployeeCollection().sortEmployeesByPerformanceRatingDesc();
         employeeTable.getItems().setAll(employeesByRating);
+    }
+
+    public void handleTop5HighestPaid(ActionEvent event) {
+        List<Employee<Integer>> top5HighestPaid = AppContext.getEmployeeCollection().getTop5HighestPaidEmployees();
+        employeeTable.getItems().setAll(top5HighestPaid);
+    }
+
+    public void handleAverageSalaryByDepartment(ActionEvent event) {
+        Department selectedDepartment = departmentAvgComboBox.getValue();
+        Double avg = AppContext.getEmployeeCollection().calculateAverageSalaryByDepartment(selectedDepartment);
+        averageSalaryLabel.setText("$" + String.format("%.2f", avg));
     }
 }
