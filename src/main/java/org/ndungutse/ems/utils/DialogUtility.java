@@ -12,7 +12,6 @@ public class DialogUtility {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
-        // Apply custom style
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(DialogUtility.class.getResource("/styles/dialog-style.css").toExternalForm());
         alert.showAndWait();
@@ -23,7 +22,6 @@ public class DialogUtility {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(content);
-        // Apply custom style
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(DialogUtility.class.getResource("/styles/dialog-style.css").toExternalForm());
         alert.showAndWait();
@@ -33,7 +31,6 @@ public class DialogUtility {
         Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
         confirmation.setTitle(title);
         confirmation.setHeaderText(headerText);
-        // Apply custom style
         DialogPane dialogPane = confirmation.getDialogPane();
         dialogPane.getStylesheets().add(DialogUtility.class.getResource("/styles/dialog-style.css").toExternalForm());
         Optional<ButtonType> result = confirmation.showAndWait();
