@@ -4,24 +4,27 @@
 <?import javafx.scene.layout.*?>
 
 <VBox spacing="25" style="-fx-background-color: #f9f9f9; -fx-padding: 30; -fx-font-size: 18px" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ndungutse.ems.HelloController">
-
-    <!-- Welcome Message -->
     <HBox alignment="CENTER_LEFT">
         <Label fx:id="welcomeText" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Welcome to the EMS Dashboard" />
     </HBox>
 
-    <!-- Search Bar -->
-    <HBox alignment="CENTER_LEFT" spacing="10">
-        <TextField fx:id="searchField" promptText="Search by name..." style="-fx-pref-width: 250;" />
-        <Button onAction="#handleSearchByName" style="-fx-background-color: #2980b9; -fx-text-fill: white;" text="Search" />
-        <Button onAction="#handleClearSearch" style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" text="Clear" />
-    </HBox>
-
-    <!-- Main Content: Table + Filters -->
     <HBox alignment="TOP_LEFT" prefHeight="629.0" prefWidth="1930.0" spacing="30">
-
-        <!-- Left: Employee Table and Action Buttons -->
         <VBox minWidth="-Infinity" prefHeight="557.0" prefWidth="1400.0" spacing="20">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="searchField" promptText="Search by name..." style="-fx-pref-width: 250;" />
+                <Button fx:id="searchButton" defaultButton="true" onAction="#handleSearchByName" style="-fx-background-color: #2980b9; -fx-text-fill: white;" text="Search" />
+                <Button onAction="#handleClearSearch" style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" text="Clear" />
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <HBox spacing="8" alignment="CENTER_RIGHT">
+                    <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Sort by:" />
+                    <Button onAction="#handleSortByExperience" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Experience ↓" />
+                    <Button onAction="#handleSortBySalary" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Salary ↓" />
+                    <Button onAction="#handleSortByRating" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Rating ↓" />
+                </HBox>
+            </HBox>
+
             <TableView fx:id="employeeTable" prefHeight="564.0" prefWidth="1400" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8;">
                 <columns>
                     <TableColumn fx:id="idColumn" prefWidth="80" text="ID" />
@@ -62,16 +65,12 @@
             </VBox>
 
             <Separator />
-
-            <!-- Rating Filter -->
             <VBox spacing="8">
                 <Label style="-fx-font-weight: bold;" text="Min Rating" />
                 <TextField fx:id="minRatingField" promptText="e.g., 4.0" />
             </VBox>
 
             <Separator />
-
-            <!-- Unified Buttons -->
             <HBox alignment="CENTER" spacing="10">
                 <Button onAction="#handleApplyFilters" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Apply All Filters" />
                 <Button onAction="#handleClearAllFilters" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Clear All" />

@@ -183,4 +183,13 @@ public class HelloController {
         minRatingField.clear();
         this.refreshTable();
     }
+
+    public void handleSortByExperience(ActionEvent event) {
+    }
+
+    public void handleSortBySalary(ActionEvent event) {
+    }
+
+    public void handleSortByRating(ActionEvent event) {
+    }
 }
