@@ -42,7 +42,7 @@
         </VBox>
 
         <!-- Right: Filter Panel -->
-        <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="566.0" prefWidth="441.0" spacing="20" style="-fx-background-color: #ffffff; -fx-padding: 25; -fx-pref-width: 500;                      -fx-border-color: #dcdcdc; -fx-border-radius: 10; -fx-font-size:16px; -fx-background-radius: 10;                      -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.1, 0, 2);">
+        <VBox maxHeight="-Infinity" prefHeight="566.0" prefWidth="441.0" spacing="25" style="-fx-background-color: #ffffff; -fx-padding: 25; -fx-border-color: #dcdcdc; -fx-border-radius: 10; -fx-font-size:16px; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.1, 0, 2);">
 
             <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-size:22px" text="Filters" />
 
@@ -50,23 +50,15 @@
             <VBox spacing="8">
                 <Label style="-fx-font-weight: bold;" text="Department" />
                 <ComboBox fx:id="departmentComboBox" promptText="Select department" />
-                <HBox spacing="40">
-                    <Button onAction="#handleFilterByDepartment" style="-fx-background-color: #16a085; -fx-text-fill: white;" text="Apply" />
-                    <Button onAction="#handleClearDepartmentFilter" style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" text="Clear" />
-                </HBox>
             </VBox>
 
             <Separator />
 
             <!-- Salary Range Filter -->
-            <VBox minHeight="-Infinity" spacing="8">
+            <VBox spacing="8">
                 <Label style="-fx-font-weight: bold;" text="Salary Range" />
                 <TextField fx:id="minSalaryField" promptText="Min salary" />
                 <TextField fx:id="maxSalaryField" promptText="Max salary" />
-                <HBox spacing="10">
-                    <Button onAction="#handleFilterBySalaryRange" style="-fx-background-color: #f39c12; -fx-text-fill: white;" text="Apply" />
-                    <Button onAction="#handleClearSalaryFilter" style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" text="Clear" />
-                </HBox>
             </VBox>
 
             <Separator />
@@ -75,11 +67,15 @@
             <VBox spacing="8">
                 <Label style="-fx-font-weight: bold;" text="Min Rating" />
                 <TextField fx:id="minRatingField" promptText="e.g., 4.0" />
-                <HBox spacing="10">
-                    <Button onAction="#handleFilterByPerformanceRating" style="-fx-background-color: #9b59b6; -fx-text-fill: white;" text="Apply" />
-                    <Button onAction="#handleClearRatingFilter" style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" text="Clear" />
-                </HBox>
             </VBox>
+
+            <Separator />
+
+            <!-- Unified Buttons -->
+            <HBox alignment="CENTER" spacing="10">
+                <Button onAction="#handleApplyFilters" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Apply All Filters" />
+                <Button onAction="#handleClearAllFilters" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Clear All" />
+            </HBox>
         </VBox>
     </HBox>
 </VBox>

@@ -16,7 +16,6 @@ import org.ndungutse.ems.repository.EmployeeCollection;
 public class HelloApplication extends Application {
         @Override
         public void start(Stage stage) throws IOException {
-
                 try {
                         // Load the FXML file
                         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -35,7 +34,8 @@ public class HelloApplication extends Application {
                         stage.show();
 
                 }catch (IOException e ){
-                        System.out.println(e.getMessage());
+                        System.out.println("Here");
+                        System.out.println(e);
                 }
         }
         public static final EmployeeCollection<Integer> employeeCollection = AppContext.getEmployeeCollection();

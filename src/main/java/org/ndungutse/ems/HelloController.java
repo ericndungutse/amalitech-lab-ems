@@ -12,17 +12,31 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.ndungutse.ems.models.Department;
 import org.ndungutse.ems.models.Employee;
 import org.ndungutse.ems.repository.EmployeeCollection;
 import org.ndungutse.ems.utils.DialogUtility;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class HelloController {
     @FXML
-    private Label welcomeText;
+    private ComboBox<Department> departmentComboBox;
+    @FXML
+    private ComboBox<Department> filterDepartmentComboBox;
+    @FXML
+    private TextField minSalaryField;
+
+    @FXML
+    private TextField maxSalaryField;
+
+    @FXML
+    private TextField minRatingField;
+
     @FXML
     private TableView<Employee<Integer>> employeeTable;
 
@@ -49,10 +63,9 @@ public class HelloController {
     private TableColumn<Employee<Integer>, Boolean> statusColumn;
 
     private final EmployeeCollection<Integer> employeeCollection = AppContext.getEmployeeCollection();
-
-
     @FXML
     public void initialize() {
+        departmentComboBox.getItems().addAll(Department.values());
         employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         idColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getEmployeeId()).asObject());
         nameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
@@ -64,6 +77,7 @@ public class HelloController {
 
         // Load employees from your collection
         List<Employee<Integer>> employees = employeeCollection.getAllEmployees();
+
 
         // Add to the table
         employeeTable.getItems().setAll(employees);
@@ -131,22 +145,37 @@ public class HelloController {
         employeeTable.getItems().setAll(AppContext.getEmployeeCollection().getAllEmployees());
     }
 
-    public void handleFilterByPerformanceRating(ActionEvent event) {
+    public void handleApplyFilters(ActionEvent event) {
+        Department department = departmentComboBox.getValue();
+        Double minSalary = parseDoubleOrNull(minSalaryField.getText());
+        Double maxSalary = parseDoubleOrNull(maxSalaryField.getText());
+        Double minRating = parseDoubleOrNull(minRatingField.getText());
+
+        List<Employee<Integer>> filtered = HelloApplication.employeeCollection.filter(
+                department, minSalary, maxSalary, minRating
+        );
+        employeeTable.getItems().setAll(filtered);
     }
 
-    public void handleClearRatingFilter(ActionEvent event) {
+    private Double parseDoubleOrNull(String input){
+        try {
+        if(input == null || input.isEmpty()) {
+            return null;
+        } else {
+            return Double.parseDouble(input);
+        }
+        }catch (NumberFormatException e){
+            DialogUtility.showErrorAlert("Input Error", "Please enter valid numbers for filters.");
+        }
+        return null;
     }
 
-    public void handleFilterBySalaryRange(ActionEvent event) {
-
-    }
-
-    public void handleClearSalaryFilter(ActionEvent event) {
-    }
-
-    public void handleClearDepartmentFilter(ActionEvent event) {
-    }
-
-    public void handleFilterByDepartment(ActionEvent event) {
+    // CLear Filter Fields
+    public void handleClearAllFilters(ActionEvent event) {
+        departmentComboBox.getSelectionModel().clearSelection();
+        minSalaryField.clear();
+        maxSalaryField.clear();
+        minRatingField.clear();
+        this.refreshTable();
     }
 }

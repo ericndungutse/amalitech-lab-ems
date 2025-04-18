@@ -127,6 +127,17 @@ public class EmployeeCollection<T> {
         return emp;
     }
 
+    // Combined Filters
+    public List<Employee<T>> filter(Department department, Double minSalary, Double maxSalary, Double minRating) {
+        // If any parameter is null, predicate returns true. e -> true returns all elements.  Meaning for each element, it will return true.
+        return this.employees.values().stream()
+                .filter(employee -> department == null || employee.getDepartment() == department)
+                .filter(employee -> minSalary == null || employee.getSalary() >= minSalary)
+                .filter(employee -> maxSalary == null || employee.getSalary() <= maxSalary)
+                .filter(employee -> minRating == null || employee.getPerformanceRating() >= minRating)
+                .collect(Collectors.toList());
+    }
+
     // Sort employees by years of experience in descending order
     public List<Employee<T>> sortEmployeesByExperienceDesc() {
         List<Employee<T>> employeesList = this.employees.values().stream().collect(Collectors.toList());
