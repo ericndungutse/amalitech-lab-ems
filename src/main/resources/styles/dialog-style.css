@@ -1,0 +1,10 @@
+.dialog-pane {
+    -fx-background-color: white;
+    -fx-font-size: 16px;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: white;
+}
+
+

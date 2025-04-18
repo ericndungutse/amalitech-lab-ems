@@ -7,17 +7,25 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.ndungutse.ems.AppContext;
+import org.ndungutse.ems.exceptions.AppException;
 import org.ndungutse.ems.models.Department;
 import org.ndungutse.ems.models.Employee;
+import org.ndungutse.ems.validation.Validator;
 
 public class EmployeeCollection<T> {
     private HashMap<T, Employee<T>> employees = new HashMap<>();
 
+    public int generateNewEmployeeId() {
+        return AppContext.getEmployeeCollection().getAllEmployees().size() + 1;
+    }
+
     // Add employee
     public void addEmployee(Employee<T> employee) {
+        Validator.validateNewEmployee(employee);
         // Check if employee already exists
         if (this.employees.get(employee.getEmployeeId()) != null)
-            throw new RuntimeException("Employee already exists");
+            throw new AppException("Employee already exists");
 
         // Save new employee
         this.employees.put(employee.getEmployeeId(), employee);
@@ -27,7 +35,7 @@ public class EmployeeCollection<T> {
     public void removeEmployee(T employeeId) {
         // Check if employee with id exists
         if (this.employees.get(employeeId) == null)
-            throw new RuntimeException("Employee with id: " + employeeId + "does not exists.");
+            throw new AppException("Employee with id: " + employeeId + "does not exists.");
 
         // Remove the employee
         employees.remove(employeeId);
@@ -40,11 +48,11 @@ public class EmployeeCollection<T> {
 
         // Check if employee exists
         if (employeeToUpdate == null)
-            throw new RuntimeException("Employee with id: \" + employeeId + \"does not exists.");
+            throw new AppException("Employee with id: \" + employeeId + \"does not exists.");
 
         // Restrict Id Update
         if (field == "employeeId")
-            throw new RuntimeException("Employee Id cannot be update.");
+            throw new AppException("Employee Id cannot be update.");
 
         // Update employee field
         switch (field) {
@@ -75,7 +83,7 @@ public class EmployeeCollection<T> {
                 employeeToUpdate.setActive((Boolean) newValue);
                 break;
             default:
-                throw new RuntimeException("Invalid field.");
+                throw new AppException("Invalid field.");
         }
     }
 
@@ -117,6 +125,26 @@ public class EmployeeCollection<T> {
         List<Employee<T>> emp = this.employees.values().stream()
                 .filter(employee -> employee.getPerformanceRating() >= minRating).collect(Collectors.toList());
         return emp;
+    }
+
+    // Combined Filters
+    public List<Employee<T>> filter(Department department, Double minSalary, Double maxSalary, Double minRating) {
+        // Validate rating
+        if(minRating != null){
+         Validator.validateRating(minRating);
+        }
+        // Validate Salary
+        if(minSalary != null) Validator.validateSalary(minSalary);
+
+        if(maxSalary != null) Validator.validateSalary(maxSalary);
+
+        // If any parameter is null, predicate returns true. e -> true returns all elements.  Meaning for each element, it will return true.
+        return this.employees.values().stream()
+                .filter(employee -> department == null || employee.getDepartment() == department)
+                .filter(employee -> minSalary == null || employee.getSalary() >= minSalary)
+                .filter(employee -> maxSalary == null || employee.getSalary() <= maxSalary)
+                .filter(employee -> minRating == null || employee.getPerformanceRating() >= minRating)
+                .collect(Collectors.toList());
     }
 
     // Sort employees by years of experience in descending order

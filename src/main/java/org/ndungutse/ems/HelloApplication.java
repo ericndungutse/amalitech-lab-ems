@@ -16,28 +16,29 @@ import org.ndungutse.ems.repository.EmployeeCollection;
 public class HelloApplication extends Application {
         @Override
         public void start(Stage stage) throws IOException {
-                // Load the FXML file
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+                try {
+                        // Load the FXML file
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-                // Get screen dimensions
-                Rectangle2D screenBounds = Screen.getPrimary().getVisualBounds();
+                        // Load the FXML and create the scene
+                        Scene scene = new Scene(fxmlLoader.load());
 
-                // Load the FXML and set the scene size to the screen's width and height
-                Scene scene = new Scene(fxmlLoader.load(), screenBounds.getWidth(), screenBounds.getHeight());
+                        // Set the title
+                        stage.setTitle("Employee Management System");
 
-                // Set the title of the window
-                stage.setTitle("Hello!");
+                        // Maximize the window to fill the screen
+                        stage.setMaximized(true);
 
-                // Set the scene and show the stage
-                stage.setScene(scene);
+                        // Set the scene and show the stage
+                        stage.setScene(scene);
+                        stage.show();
 
-                // Maximize the window to take the full screen size
-                stage.setMaximized(true);
-
-                // Show the stage
-                stage.show();
+                }catch (IOException e ){
+                        System.out.println("Here");
+                        System.out.println(e);
+                }
         }
-        public static final EmployeeCollection<Integer> employeeCollection = CollectionSelector.getEmployeeCollection();
+        public static final EmployeeCollection<Integer> employeeCollection = AppContext.getEmployeeCollection();
 
         public static void main(String[] args) {
                 employeeCollection.addEmployee(new Employee<>(1, "Eric", Department.IT, 1500, 4.5, 3, true));
