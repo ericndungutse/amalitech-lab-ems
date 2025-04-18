@@ -43,7 +43,8 @@ public class HelloController {
 
     @FXML
     private TableColumn<Employee<Integer>, Integer> experienceColumn;
-
+    @FXML
+    private TextField searchField;
     @FXML
     private TableColumn<Employee<Integer>, Boolean> statusColumn;
 
@@ -114,4 +115,19 @@ public class HelloController {
                 refreshTable();
             }
         }
+
+    public void handleSearchByName(ActionEvent event) {
+        String searchTerm = searchField.getText();
+        if (searchTerm == null || searchTerm.isEmpty()) {
+            return;
+        }
+
+        List<Employee<Integer>> results = AppContext.getEmployeeCollection().getEmployeeByName(searchTerm);
+        employeeTable.getItems().setAll(results);
+    }
+
+    public void handleClearSearch(ActionEvent event) {
+        searchField.clear();
+        employeeTable.getItems().setAll(AppContext.getEmployeeCollection().getAllEmployees());
+    }
 }
