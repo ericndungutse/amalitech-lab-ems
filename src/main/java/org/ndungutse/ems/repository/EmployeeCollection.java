@@ -129,6 +129,15 @@ public class EmployeeCollection<T> {
 
     // Combined Filters
     public List<Employee<T>> filter(Department department, Double minSalary, Double maxSalary, Double minRating) {
+        // Validate rating
+        if(minRating != null){
+         Validator.validateRating(minRating);
+        }
+        // Validate Salary
+        if(minSalary != null) Validator.validateSalary(minSalary);
+
+        if(maxSalary != null) Validator.validateSalary(maxSalary);
+
         // If any parameter is null, predicate returns true. e -> true returns all elements.  Meaning for each element, it will return true.
         return this.employees.values().stream()
                 .filter(employee -> department == null || employee.getDepartment() == department)

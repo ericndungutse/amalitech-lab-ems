@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.ndungutse.ems.exceptions.AppException;
 import org.ndungutse.ems.models.Department;
 import org.ndungutse.ems.models.Employee;
 import org.ndungutse.ems.repository.EmployeeCollection;
@@ -146,6 +147,7 @@ public class HelloController {
     }
 
     public void handleApplyFilters(ActionEvent event) {
+        try {
         Department department = departmentComboBox.getValue();
         Double minSalary = parseDoubleOrNull(minSalaryField.getText());
         Double maxSalary = parseDoubleOrNull(maxSalaryField.getText());
@@ -155,6 +157,9 @@ public class HelloController {
                 department, minSalary, maxSalary, minRating
         );
         employeeTable.getItems().setAll(filtered);
+        }catch (AppException e){
+            DialogUtility.showErrorAlert( "Filtering Error",e.getMessage());
+        }
     }
 
     private Double parseDoubleOrNull(String input){
