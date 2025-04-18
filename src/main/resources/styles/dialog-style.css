@@ -1,0 +1,9 @@
+.dialog-pane {
+    -fx-background-color: white;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: white;
+}
+
+

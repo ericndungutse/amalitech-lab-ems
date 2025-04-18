@@ -18,20 +18,21 @@ public class HelloApplication extends Application {
         public void start(Stage stage) throws IOException {
 
                 try {
-                // Load the FXML file
-                FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+                        // Load the FXML file
+                        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
 
-                // Load the FXML and set the scene size to the screen's width and height
-                Scene scene = new Scene(fxmlLoader.load(),1200, 600);
+                        // Load the FXML and create the scene
+                        Scene scene = new Scene(fxmlLoader.load());
 
-                // Set the title of the window
-                stage.setTitle("Hello!");
+                        // Set the title
+                        stage.setTitle("Employee Management System");
 
-                // Set the scene and show the stage
-                stage.setScene(scene);
+                        // Maximize the window to fill the screen
+                        stage.setMaximized(true);
 
-                // Show the stage
-                stage.show();
+                        // Set the scene and show the stage
+                        stage.setScene(scene);
+                        stage.show();
 
                 }catch (IOException e ){
                         System.out.println(e.getMessage());

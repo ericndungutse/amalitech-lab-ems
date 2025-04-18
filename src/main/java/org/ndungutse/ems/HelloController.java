@@ -130,4 +130,23 @@ public class HelloController {
         searchField.clear();
         employeeTable.getItems().setAll(AppContext.getEmployeeCollection().getAllEmployees());
     }
+
+    public void handleFilterByPerformanceRating(ActionEvent event) {
+    }
+
+    public void handleClearRatingFilter(ActionEvent event) {
+    }
+
+    public void handleFilterBySalaryRange(ActionEvent event) {
+
+    }
+
+    public void handleClearSalaryFilter(ActionEvent event) {
+    }
+
+    public void handleClearDepartmentFilter(ActionEvent event) {
+    }
+
+    public void handleFilterByDepartment(ActionEvent event) {
+    }
 }

@@ -1,68 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<VBox spacing="25" xmlns:fx="http://javafx.com/fxml/1"
-      xmlns="http://javafx.com/javafx/17.0.12"
-      fx:controller="org.ndungutse.ems.HelloController"
-      style="-fx-background-color: #f9f9f9; -fx-padding: 30;">
+<VBox spacing="25" style="-fx-background-color: #f9f9f9; -fx-padding: 30; -fx-font-size: 18px" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ndungutse.ems.HelloController">
 
     <!-- Welcome Message -->
     <HBox alignment="CENTER_LEFT">
-        <Label fx:id="welcomeText"
-               text="Welcome to the EMS Dashboard"
-               style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+        <Label fx:id="welcomeText" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Welcome to the EMS Dashboard" />
     </HBox>
 
     <!-- Search Bar -->
-    <HBox spacing="10" alignment="CENTER_LEFT">
-        <TextField fx:id="searchField"
-                   promptText="Search by name..."
-                   style="-fx-pref-width: 250;" />
-        <Button text="Search"
-                onAction="#handleSearchByName"
-                style="-fx-background-color: #2980b9; -fx-text-fill: white;" />
-        <Button text="Clear"
-                onAction="#handleClearSearch"
-                style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" />
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <TextField fx:id="searchField" promptText="Search by name..." style="-fx-pref-width: 250;" />
+        <Button onAction="#handleSearchByName" style="-fx-background-color: #2980b9; -fx-text-fill: white;" text="Search" />
+        <Button onAction="#handleClearSearch" style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" text="Clear" />
     </HBox>
 
-    <!-- Employee Table -->
-    <HBox alignment="CENTER_LEFT">
-        <TableView fx:id="employeeTable"
-                   prefWidth="950"
-                   prefHeight="450"
-                   style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8;">
-            <columns>
-                <TableColumn fx:id="idColumn" text="ID" prefWidth="80"/>
-                <TableColumn fx:id="nameColumn" text="Name" prefWidth="150"/>
-                <TableColumn fx:id="departmentColumn" text="Department" prefWidth="120"/>
-                <TableColumn fx:id="salaryColumn" text="Salary" prefWidth="100"/>
-                <TableColumn fx:id="ratingColumn" text="Rating" prefWidth="90"/>
-                <TableColumn fx:id="experienceColumn" text="Experience" prefWidth="120"/>
-                <TableColumn fx:id="statusColumn" text="Active" prefWidth="80"/>
-            </columns>
-        </TableView>
-    </HBox>
-    <!-- Action Buttons (Below Table) -->
-    <HBox spacing="10" alignment="CENTER_LEFT">
-        <Button text="Add Employee"
-                onAction="#handleNewEmployee"
-                style="-fx-background-color: #3498db; -fx-text-fill: white;" />
+    <!-- Main Content: Table + Filters -->
+    <HBox alignment="TOP_LEFT" prefHeight="629.0" prefWidth="1930.0" spacing="30">
 
-        <Button text="Delete Selected"
-                onAction="#handleDeleteEmployee"
-                style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
+        <!-- Left: Employee Table and Action Buttons -->
+        <VBox minWidth="-Infinity" prefHeight="557.0" prefWidth="1400.0" spacing="20">
+            <TableView fx:id="employeeTable" prefHeight="564.0" prefWidth="1400" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8;">
+                <columns>
+                    <TableColumn fx:id="idColumn" prefWidth="80" text="ID" />
+                    <TableColumn fx:id="nameColumn" prefWidth="150" text="Name" />
+                    <TableColumn fx:id="departmentColumn" prefWidth="120" text="Department" />
+                    <TableColumn fx:id="salaryColumn" prefWidth="100" text="Salary" />
+                    <TableColumn fx:id="ratingColumn" prefWidth="90" text="Rating" />
+                    <TableColumn fx:id="experienceColumn" prefWidth="120" text="Experience" />
+                    <TableColumn fx:id="statusColumn" prefWidth="80" text="Active" />
+                </columns>
+            </TableView>
 
-<!--        <Button text="Top 5 Highest Paid"-->
-<!--                onAction="#handleTop5HighestPaid"-->
-<!--                style="-fx-background-color: #8e44ad; -fx-text-fill: white;" />-->
+            <!-- Action Buttons -->
+            <HBox spacing="10">
+                <Button onAction="#handleNewEmployee" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Add Employee" />
+                <Button onAction="#handleDeleteEmployee" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Delete Selected" />
+            </HBox>
+        </VBox>
 
-<!--        <Button text="Avg Salary by Dept"-->
-<!--                onAction="#handleAverageSalaryByDepartment"-->
-<!--                style="-fx-background-color: #27ae60; -fx-text-fill: white;" />-->
+        <!-- Right: Filter Panel -->
+        <VBox maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="566.0" prefWidth="441.0" spacing="20" style="-fx-background-color: #ffffff; -fx-padding: 25; -fx-pref-width: 500;                      -fx-border-color: #dcdcdc; -fx-border-radius: 10; -fx-font-size:16px; -fx-background-radius: 10;                      -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.1, 0, 2);">
+
+            <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-size:22px" text="Filters" />
+
+            <!-- Department Filter -->
+            <VBox spacing="8">
+                <Label style="-fx-font-weight: bold;" text="Department" />
+                <ComboBox fx:id="departmentComboBox" promptText="Select department" />
+                <HBox spacing="40">
+                    <Button onAction="#handleFilterByDepartment" style="-fx-background-color: #16a085; -fx-text-fill: white;" text="Apply" />
+                    <Button onAction="#handleClearDepartmentFilter" style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" text="Clear" />
+                </HBox>
+            </VBox>
+
+            <Separator />
+
+            <!-- Salary Range Filter -->
+            <VBox minHeight="-Infinity" spacing="8">
+                <Label style="-fx-font-weight: bold;" text="Salary Range" />
+                <TextField fx:id="minSalaryField" promptText="Min salary" />
+                <TextField fx:id="maxSalaryField" promptText="Max salary" />
+                <HBox spacing="10">
+                    <Button onAction="#handleFilterBySalaryRange" style="-fx-background-color: #f39c12; -fx-text-fill: white;" text="Apply" />
+                    <Button onAction="#handleClearSalaryFilter" style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" text="Clear" />
+                </HBox>
+            </VBox>
+
+            <Separator />
+
+            <!-- Rating Filter -->
+            <VBox spacing="8">
+                <Label style="-fx-font-weight: bold;" text="Min Rating" />
+                <TextField fx:id="minRatingField" promptText="e.g., 4.0" />
+                <HBox spacing="10">
+                    <Button onAction="#handleFilterByPerformanceRating" style="-fx-background-color: #9b59b6; -fx-text-fill: white;" text="Apply" />
+                    <Button onAction="#handleClearRatingFilter" style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" text="Clear" />
+                </HBox>
+            </VBox>
+        </VBox>
     </HBox>
 </VBox>
