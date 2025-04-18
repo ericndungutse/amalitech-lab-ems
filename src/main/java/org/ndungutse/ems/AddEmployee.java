@@ -10,6 +10,7 @@ import org.ndungutse.ems.exceptions.AppException;
 import org.ndungutse.ems.models.Department;
 import org.ndungutse.ems.models.Employee;
 import org.ndungutse.ems.repository.EmployeeCollection;
+import org.ndungutse.ems.utils.DialogUtility;
 
 
 import java.net.URL;
@@ -59,14 +60,13 @@ public class AddEmployee implements Initializable {
 
             this.closeModel();
             helloController.refreshTable();
-            AppContext.showAlert( "New employee", "Employee added successful");
+            DialogUtility.showAlert( "New employee", "Employee added successful");
         }catch (AppException e){
-            AppContext.showErrorAlert("Error", e.getMessage());
+            DialogUtility.showErrorAlert("Error", e.getMessage());
         }catch (NumberFormatException e){
-            AppContext.showErrorAlert("Invalid Input", e.getMessage());
+            DialogUtility.showErrorAlert("Invalid Input", "Invalid Input: " +  e.getMessage());
         } catch (Exception e){
-            System.out.println(e);
-            AppContext.showErrorAlert("Error", "Somthing went wrong! Try again later.");
+            DialogUtility.showErrorAlert("Error", "Somthing went wrong! Try again later.");
         }
 
     }

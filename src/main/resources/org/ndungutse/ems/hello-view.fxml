@@ -17,36 +17,39 @@
                style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
     </HBox>
 
-    <!-- Table Centered with Fixed Width -->
-    <HBox alignment="TOP_LEFT">
+    <!-- Employee Table -->
+    <HBox alignment="CENTER_LEFT">
         <TableView fx:id="employeeTable"
-                   prefWidth="850"
+                   prefWidth="950"
                    prefHeight="450"
                    style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8;">
             <columns>
                 <TableColumn fx:id="idColumn" text="ID" prefWidth="80"/>
                 <TableColumn fx:id="nameColumn" text="Name" prefWidth="150"/>
-                <TableColumn fx:id="departmentColumn" text="Department" prefWidth="150"/>
+                <TableColumn fx:id="departmentColumn" text="Department" prefWidth="120"/>
                 <TableColumn fx:id="salaryColumn" text="Salary" prefWidth="100"/>
-                <TableColumn fx:id="ratingColumn" text="Rating" prefWidth="100"/>
+                <TableColumn fx:id="ratingColumn" text="Rating" prefWidth="90"/>
                 <TableColumn fx:id="experienceColumn" text="Experience" prefWidth="120"/>
-                <TableColumn fx:id="statusColumn" text="Active" prefWidth="100"/>
+                <TableColumn fx:id="statusColumn" text="Active" prefWidth="80"/>
             </columns>
         </TableView>
     </HBox>
-
-    <!-- Add Employee Button Centered Below -->
-    <HBox alignment="BOTTOM_LEFT">
+    <!-- Action Buttons (Below Table) -->
+    <HBox spacing="10" alignment="CENTER_LEFT">
         <Button text="Add Employee"
                 onAction="#handleNewEmployee"
-                style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 5;"/>
+                style="-fx-background-color: #3498db; -fx-text-fill: white;" />
 
         <Button text="Delete Selected"
                 onAction="#handleDeleteEmployee"
-                style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 5;"/>
-        <HBox.margin>
-            <Insets left="10"/>
-        </HBox.margin>
-    </HBox>
+                style="-fx-background-color: #e74c3c; -fx-text-fill: white;" />
 
+<!--        <Button text="Top 5 Highest Paid"-->
+<!--                onAction="#handleTop5HighestPaid"-->
+<!--                style="-fx-background-color: #8e44ad; -fx-text-fill: white;" />-->
+
+<!--        <Button text="Avg Salary by Dept"-->
+<!--                onAction="#handleAverageSalaryByDepartment"-->
+<!--                style="-fx-background-color: #27ae60; -fx-text-fill: white;" />-->
+    </HBox>
 </VBox>

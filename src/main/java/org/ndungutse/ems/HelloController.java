@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.ndungutse.ems.models.Employee;
 import org.ndungutse.ems.repository.EmployeeCollection;
+import org.ndungutse.ems.utils.DialogUtility;
 
 import java.io.IOException;
 import java.util.List;
@@ -103,19 +104,14 @@ public class HelloController {
             Employee<Integer> selectedEmployee = employeeTable.getSelectionModel().getSelectedItem();
 
             if (selectedEmployee == null) {
-                AppContext.showAlert("No employee selected", "Please select an employee to delete.");
+                DialogUtility.showAlert("No employee selected", "Please select an employee to delete.");
                 return;
             }
 
-            Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmation.setTitle("Confirm Deletion");
-            confirmation.setHeaderText("Are you sure you want to delete employee, " + selectedEmployee.getName() + "? This action cannot be undone.");
-
-            Optional<ButtonType> result = confirmation.showAndWait();
-            if (result.isPresent() && result.get() == ButtonType.OK) {
+            boolean result = DialogUtility.showConfirmation("Confirm Deletion","Are you sure you want to delete employee, " + selectedEmployee.getName() + "? This action cannot be undone." );
+            if (result) {
                 AppContext.getEmployeeCollection().removeEmployee(selectedEmployee.getEmployeeId());
                 refreshTable();
             }
         }
-
 }
