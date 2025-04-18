@@ -1,6 +1,5 @@
 package org.ndungutse.ems;
 
-import javafx.scene.control.Alert;
 import org.ndungutse.ems.repository.EmployeeCollection;
 
 public class AppContext {

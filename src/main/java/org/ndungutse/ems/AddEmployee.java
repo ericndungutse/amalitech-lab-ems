@@ -12,20 +12,26 @@ import org.ndungutse.ems.models.Employee;
 import org.ndungutse.ems.repository.EmployeeCollection;
 import org.ndungutse.ems.utils.DialogUtility;
 
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AddEmployee implements Initializable {
     @FXML
     private ComboBox<Department> departmentComboBox;
-    @FXML private TextField nameField;
-    @FXML private TextField salaryField;
-    @FXML private TextField performanceRatingField;
-    @FXML private TextField yearsOfExperienceField;
-    @FXML private CheckBox activeCheckBox;
-    @FXML private Button addButton;
-    @FXML private Button cancelButton;
+    @FXML
+    private TextField nameField;
+    @FXML
+    private TextField salaryField;
+    @FXML
+    private TextField performanceRatingField;
+    @FXML
+    private TextField yearsOfExperienceField;
+    @FXML
+    private CheckBox activeCheckBox;
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button cancelButton;
     private HelloController helloController;
     private final EmployeeCollection<Integer> employeeCollection = AppContext.getEmployeeCollection();
 
@@ -52,20 +58,19 @@ public class AddEmployee implements Initializable {
                 throw new AppException("All fields must be filled.");
             }
 
-            Employee<Integer> employee = new Employee<>(employeeCollection.generateNewEmployeeId(), name, department, Double.parseDouble(salaryText), Double.parseDouble(ratingText), Integer.parseInt(experienceText), isActive);
+            Employee<Integer> employee = new Employee<>(employeeCollection.generateNewEmployeeId(), name, department,
+                    Double.parseDouble(salaryText), Double.parseDouble(ratingText), Integer.parseInt(experienceText),
+                    isActive);
             employeeCollection.addEmployee(employee);
-
-            // Example: print to console or add to a data store
-            System.out.println("Added Employee: " + employee);
 
             this.closeModel();
             helloController.refreshTable();
-            DialogUtility.showAlert( "New employee", "Employee added successful");
-        }catch (AppException e){
+            DialogUtility.showAlert("New employee", "Employee added successful");
+        } catch (AppException e) {
             DialogUtility.showErrorAlert("Error", e.getMessage());
-        }catch (NumberFormatException e){
-            DialogUtility.showErrorAlert("Invalid Input", "Invalid Input: " +  e.getMessage());
-        } catch (Exception e){
+        } catch (NumberFormatException e) {
+            DialogUtility.showErrorAlert("Invalid Input", "Invalid Input: " + e.getMessage());
+        } catch (Exception e) {
             DialogUtility.showErrorAlert("Error", "Somthing went wrong! Try again later.");
         }
 
