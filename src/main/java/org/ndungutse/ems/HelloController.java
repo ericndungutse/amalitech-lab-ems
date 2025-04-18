@@ -185,11 +185,17 @@ public class HelloController {
     }
 
     public void handleSortByExperience(ActionEvent event) {
+        List<Employee<Integer>> employeesByExperience = AppContext.getEmployeeCollection().sortEmployeesByExperienceDesc();
+        employeeTable.getItems().setAll(employeesByExperience);
     }
 
     public void handleSortBySalary(ActionEvent event) {
+        List<Employee<Integer>> employeesBySalary = AppContext.getEmployeeCollection().sortEmployeesBySalaryDesc();
+        employeeTable.getItems().setAll(employeesBySalary);
     }
 
     public void handleSortByRating(ActionEvent event) {
+        List<Employee<Integer>> employeesByRating = AppContext.getEmployeeCollection().sortEmployeesByPerformanceRatingDesc();
+        employeeTable.getItems().setAll(employeesByRating);
     }
 }
