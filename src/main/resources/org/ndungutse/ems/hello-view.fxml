@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="25" style="-fx-background-color: #f9f9f9; -fx-padding: 30; -fx-font-size: 1.6em;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ndungutse.ems.HelloController">
+<VBox spacing="25" style="-fx-background-color: #f9f9f9; -fx-padding: 30" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ndungutse.ems.HelloController">
 
     <!-- Welcome Message -->
     <HBox alignment="CENTER_LEFT">
@@ -32,7 +32,10 @@
             </HBox>
 
             <!-- Employee Table -->
-            <TableView fx:id="employeeTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="1100.0" style="-fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size:20px" VBox.vgrow="ALWAYS">
+            <TableView fx:id="employeeTable"  VBox.vgrow="ALWAYS"
+           style="-fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8"
+           minWidth="0.0" minHeight="0.0"
+           maxWidth="Infinity" maxHeight="Infinity">
                 <columns>
                     <TableColumn fx:id="idColumn" prefWidth="25" text="ID" />
                     <TableColumn fx:id="nameColumn" prefWidth="70" text="Name" />
@@ -60,7 +63,7 @@
 
                 <HBox alignment="CENTER_RIGHT" spacing="10">
                     <Button onAction="#handleTop5HighestPaid" style="-fx-background-color: #8e44ad; -fx-text-fill: white;" text="Top 5 Highest Paid" />
-                    <ComboBox fx:id="departmentAvgComboBox" promptText="Select department" style="-fx-pref-width: 160;" />
+                    <ComboBox fx:id="departmentAvgComboBox" promptText="Select department" HBox.hgrow="ALWAYS" minWidth="0.0" maxWidth="Infinity" />
                     <Button onAction="#handleAverageSalaryByDepartment" style="-fx-background-color: #16a085; -fx-text-fill: white;" text="Average Salary (Dept)" />
                     <Label fx:id="averageSalaryLabel" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="Average: -" />
                 </HBox>
