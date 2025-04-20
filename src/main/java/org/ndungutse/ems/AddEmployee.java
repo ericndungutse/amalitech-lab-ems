@@ -33,7 +33,8 @@ public class AddEmployee implements Initializable {
     @FXML
     private Button cancelButton;
     private HelloController helloController;
-    private final EmployeeCollection<Integer> employeeCollection = AppContext.getEmployeeCollection();
+    private final EmployeeCollection<Integer> employeeCollection = AppContext
+            .getEmployeeCollection();
 
     public void initialize(URL location, ResourceBundle resources) {
         System.out.println("Initializing...");
@@ -54,24 +55,30 @@ public class AddEmployee implements Initializable {
             Department department = departmentComboBox.getValue();
             boolean isActive = activeCheckBox.isSelected();
 
-            if (name.isEmpty() || salaryText.isEmpty() || ratingText.isEmpty() || experienceText.isEmpty()) {
+            if (name.isEmpty() || salaryText.isEmpty() || ratingText.isEmpty()
+                    || experienceText.isEmpty()) {
                 throw new AppException("All fields must be filled.");
             }
 
-            Employee<Integer> employee = new Employee<>(employeeCollection.generateNewEmployeeId(), name, department,
-                    Double.parseDouble(salaryText), Double.parseDouble(ratingText), Integer.parseInt(experienceText),
-                    isActive);
+            Employee<Integer> employee = new Employee<>(
+                    employeeCollection.generateNewEmployeeId(), name,
+                    department, Double.parseDouble(salaryText),
+                    Double.parseDouble(ratingText),
+                    Integer.parseInt(experienceText), isActive);
             employeeCollection.addEmployee(employee);
 
             this.closeModel();
-            helloController.refreshTable();
-            DialogUtility.showAlert("New employee", "Employee added successful");
+            helloController.getEmployees(department, null, null, null, 0);
+            DialogUtility.showAlert("New employee",
+                    "Employee added successful");
         } catch (AppException e) {
             DialogUtility.showErrorAlert("Error", e.getMessage());
         } catch (NumberFormatException e) {
-            DialogUtility.showErrorAlert("Invalid Input", "Invalid Input: " + e.getMessage());
+            DialogUtility.showErrorAlert("Invalid Input",
+                    "Invalid Input: " + e.getMessage());
         } catch (Exception e) {
-            DialogUtility.showErrorAlert("Error", "Somthing went wrong! Try again later.");
+            DialogUtility.showErrorAlert("Error",
+                    "Somthing went wrong! Try again later.");
         }
 
     }
