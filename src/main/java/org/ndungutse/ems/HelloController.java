@@ -3,6 +3,7 @@ package org.ndungutse.ems;
 import java.io.IOException;
 import java.util.List;
 
+import javafx.scene.control.*;
 import org.ndungutse.ems.exceptions.AppException;
 import org.ndungutse.ems.models.Department;
 import org.ndungutse.ems.models.Employee;
@@ -18,15 +19,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.security.auth.callback.Callback;
+
 public class HelloController {
+    private int currentPage = 1;
+    private boolean lastPage = false;
+    @FXML
+    Label pageNumberLabel;
+
     @FXML
     private ComboBox<Department> departmentComboBox;
     @FXML
@@ -72,9 +75,9 @@ public class HelloController {
 
     @FXML
     public void initialize() {
+        employeeTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY_ALL_COLUMNS);
         departmentAvgComboBox.getItems().addAll(Department.values());
         departmentComboBox.getItems().addAll(Department.values());
-        employeeTable.setColumnResizePolicy(TableView.UNCONSTRAINED_RESIZE_POLICY);
         idColumn.setCellValueFactory(data -> new SimpleIntegerProperty(data.getValue().getEmployeeId()).asObject());
         nameColumn.setCellValueFactory(data -> new SimpleStringProperty(data.getValue().getName()));
         departmentColumn
@@ -87,10 +90,7 @@ public class HelloController {
         statusColumn.setCellValueFactory(data -> new SimpleBooleanProperty(data.getValue().isActive()).asObject());
 
         // Load employees from your collection
-        List<Employee<Integer>> employees = employeeCollection.getAllEmployees();
-
-        // Add to the table
-        employeeTable.getItems().setAll(employees);
+        loadEmployeePage(currentPage);
     }
 
     public void handleNewEmployee(ActionEvent event) throws IOException {
@@ -209,7 +209,6 @@ public class HelloController {
                 .sortEmployeesByPerformanceRatingDesc();
         employeeTable.getItems().setAll(employeesByRating);
     }
-
     public void handleTop5HighestPaid(ActionEvent event) {
         List<Employee<Integer>> top5HighestPaid = AppContext.getEmployeeCollection().getTop5HighestPaidEmployees();
         employeeTable.getItems().setAll(top5HighestPaid);
@@ -219,5 +218,36 @@ public class HelloController {
         Department selectedDepartment = departmentAvgComboBox.getValue();
         Double avg = AppContext.getEmployeeCollection().calculateAverageSalaryByDepartment(selectedDepartment);
         averageSalaryLabel.setText("$" + String.format("%.2f", avg));
+    }
+
+    public void handlePreviousPage(ActionEvent event) {
+        if (currentPage > 1) {
+            currentPage--;
+            if(lastPage) lastPage =false;
+            loadEmployeePage(currentPage);
+        }
+    }
+
+    public void handleNextPage(ActionEvent event) {
+        if(lastPage) {
+
+            System.out.println("Stop " + currentPage);
+            return;
+        }
+            System.out.println("Reached");
+        currentPage++;
+        loadEmployeePage(currentPage);
+    }
+
+    // Load Employees
+    private void loadEmployeePage(int pageNumber) {
+        List<Employee<Integer>> employees = AppContext.getEmployeeCollection().getAllEmployees(currentPage);
+        if(employees.isEmpty()) {
+            lastPage = true;
+            currentPage--;
+            return;
+        };
+        employeeTable.getItems().setAll(employees);
+        pageNumberLabel.setText("Page " + pageNumber);
     }
 }

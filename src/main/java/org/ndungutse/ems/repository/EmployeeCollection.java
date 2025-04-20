@@ -94,6 +94,23 @@ public class EmployeeCollection<T> {
         return employeesList;
     }
 
+    // Paginated Get Employees
+    public List<Employee<T>> getAllEmployees(int pageNumber) {
+        List<Employee<T>> allEmployees = new ArrayList<>(this.employees.values());
+
+        int pageSize = 10;
+        int fromIndex = (pageNumber - 1) * pageSize;
+        int toIndex = Math.min(fromIndex + pageSize, allEmployees.size());
+
+        if (fromIndex >= allEmployees.size() || fromIndex < 0) {
+            return new ArrayList<>();
+        }
+
+        List<Employee<T>> page = allEmployees.subList(fromIndex, toIndex);
+        displayEmployees(page, "Employees - Page " + pageNumber);
+        return page;
+    }
+
     // Get employees by department
     public List<Employee<T>> getEmployeesByDepartment(Department department) {
         List<Employee<T>> departmentEmployees = this.employees.values().stream()

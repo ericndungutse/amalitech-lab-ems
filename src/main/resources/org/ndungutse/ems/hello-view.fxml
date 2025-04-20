@@ -3,27 +3,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox spacing="25" style="-fx-background-color: #f9f9f9; -fx-padding: 30; -fx-font-size: 16px" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ndungutse.ems.HelloController">
+<VBox spacing="25" style="-fx-background-color: #f9f9f9; -fx-padding: 30; -fx-font-size: 1.6em;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.ndungutse.ems.HelloController">
 
     <!-- Welcome Message -->
     <HBox alignment="CENTER_LEFT">
         <Label fx:id="welcomeText" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Welcome to the EMS Dashboard" />
     </HBox>
 
-    <HBox alignment="TOP_LEFT" prefHeight="629.0" prefWidth="1930.0" spacing="30">
+    <HBox spacing="30">
 
-        <!-- Left: Table and Actions -->
-        <VBox minWidth="-Infinity" prefHeight="557.0" prefWidth="1400.0" spacing="20">
+        <!-- Left Main Section -->
+        <VBox spacing="20" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
 
-            <!-- Search & Sort Controls -->
-            <HBox spacing="10" alignment="CENTER_LEFT">
+            <!-- Search & Sort Row -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
                 <TextField fx:id="searchField" promptText="Search by name..." style="-fx-pref-width: 250;" />
                 <Button fx:id="searchButton" defaultButton="true" onAction="#handleSearchByName" style="-fx-background-color: #2980b9; -fx-text-fill: white;" text="Search" />
                 <Button onAction="#handleClearSearch" style="-fx-background-color: #bdc3c7; -fx-text-fill: black;" text="Clear" />
 
                 <Region HBox.hgrow="ALWAYS" />
 
-                <HBox spacing="8" alignment="CENTER_RIGHT">
+                <HBox alignment="CENTER_RIGHT" spacing="8">
                     <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Sort by:" />
                     <Button onAction="#handleSortByExperience" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Experience ↓" />
                     <Button onAction="#handleSortBySalary" style="-fx-background-color: #34495e; -fx-text-fill: white;" text="Salary ↓" />
@@ -32,28 +32,34 @@
             </HBox>
 
             <!-- Employee Table -->
-            <TableView fx:id="employeeTable" prefHeight="564.0" prefWidth="1400" style="-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8;">
+            <TableView fx:id="employeeTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="430.0" prefWidth="1100.0" style="-fx-border-color: #e0e0e0; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size:20px" VBox.vgrow="ALWAYS">
                 <columns>
-                    <TableColumn fx:id="idColumn" prefWidth="80" text="ID" />
-                    <TableColumn fx:id="nameColumn" prefWidth="150" text="Name" />
-                    <TableColumn fx:id="departmentColumn" prefWidth="120" text="Department" />
-                    <TableColumn fx:id="salaryColumn" prefWidth="100" text="Salary" />
-                    <TableColumn fx:id="ratingColumn" prefWidth="90" text="Rating" />
-                    <TableColumn fx:id="experienceColumn" prefWidth="120" text="Experience" />
-                    <TableColumn fx:id="statusColumn" prefWidth="80" text="Active" />
+                    <TableColumn fx:id="idColumn" prefWidth="25" text="ID" />
+                    <TableColumn fx:id="nameColumn" prefWidth="70" text="Name" />
+                    <TableColumn fx:id="departmentColumn" prefWidth="70" text="Department" />
+                    <TableColumn fx:id="salaryColumn" prefWidth="70" text="Salary" />
+                    <TableColumn fx:id="ratingColumn" prefWidth="30" text="Rating" />
+                    <TableColumn fx:id="experienceColumn" prefWidth="50" text="Experience" />
+                    <TableColumn fx:id="statusColumn" prefWidth="50" text="Active" />
                 </columns>
             </TableView>
 
-            <!-- Action & Stats Buttons -->
-            <HBox spacing="10" alignment="CENTER_LEFT">
+            <!-- Custom Pagination -->
+            <HBox alignment="CENTER" spacing="10">
+                <Button fx:id="prevPageButton" onAction="#handlePreviousPage" text="Previous" />
+                <Label fx:id="pageNumberLabel" text="Page 1" />
+                <Button fx:id="nextPageButton" onAction="#handleNextPage" text="Next" />
+            </HBox>
+
+            <!-- Bottom Action Buttons -->
+            <HBox alignment="CENTER_LEFT" spacing="10">
                 <Button onAction="#handleNewEmployee" style="-fx-background-color: #3498db; -fx-text-fill: white;" text="Add Employee" />
                 <Button onAction="#handleDeleteEmployee" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Delete Selected" />
 
                 <Region HBox.hgrow="ALWAYS" />
 
-                <HBox spacing="10" alignment="CENTER_RIGHT" style="-fx-font-size: 14">
+                <HBox alignment="CENTER_RIGHT" spacing="10">
                     <Button onAction="#handleTop5HighestPaid" style="-fx-background-color: #8e44ad; -fx-text-fill: white;" text="Top 5 Highest Paid" />
-
                     <ComboBox fx:id="departmentAvgComboBox" promptText="Select department" style="-fx-pref-width: 160;" />
                     <Button onAction="#handleAverageSalaryByDepartment" style="-fx-background-color: #16a085; -fx-text-fill: white;" text="Average Salary (Dept)" />
                     <Label fx:id="averageSalaryLabel" style="-fx-font-size: 16px; -fx-text-fill: #2c3e50;" text="Average: -" />
@@ -62,11 +68,10 @@
         </VBox>
 
         <!-- Right Panel: Filters -->
-        <VBox maxHeight="-Infinity" prefHeight="566.0" prefWidth="441.0" spacing="25" style="-fx-background-color: #ffffff; -fx-padding: 25; -fx-border-color: #dcdcdc; -fx-border-radius: 10; -fx-font-size:16px; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0.1, 0, 2);">
+        <VBox prefWidth="350" spacing="25" style="-fx-background-color: transparent; -fx-padding: 25;">
 
             <Label style="-fx-font-weight: bold; -fx-text-fill: #2c3e50; -fx-font-size:22px" text="Filters" />
 
-            <!-- Department Filter -->
             <VBox spacing="8">
                 <Label style="-fx-font-weight: bold;" text="Department" />
                 <ComboBox fx:id="departmentComboBox" promptText="Select department" />
@@ -74,24 +79,17 @@
 
             <Separator />
 
-            <!-- Salary Range Filter -->
             <VBox spacing="8">
                 <Label style="-fx-font-weight: bold;" text="Salary Range" />
                 <TextField fx:id="minSalaryField" promptText="Min salary" />
                 <TextField fx:id="maxSalaryField" promptText="Max salary" />
             </VBox>
-
             <Separator />
-
-            <!-- Rating Filter -->
             <VBox spacing="8">
                 <Label style="-fx-font-weight: bold;" text="Min Rating" />
                 <TextField fx:id="minRatingField" promptText="e.g., 4.0" />
             </VBox>
-
             <Separator />
-
-            <!-- Filter Buttons -->
             <HBox alignment="CENTER" spacing="10">
                 <Button onAction="#handleApplyFilters" style="-fx-background-color: #27ae60; -fx-text-fill: white;" text="Apply All Filters" />
                 <Button onAction="#handleClearAllFilters" style="-fx-background-color: #e74c3c; -fx-text-fill: white;" text="Clear All" />
